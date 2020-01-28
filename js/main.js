@@ -52,3 +52,11 @@ var userPinElement = userPin.cloneNode(true);
 userPinList.appendChild(userPinElement);
 // ============== ОТЛАДКА ============== //
 console.log(userPinList);
+console.log(similarAds.length);
+
+var getRandomBetween = function (max, min) {
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
+// ============== ОТЛАДКА ============== //
+console.log(getRandomBetween(630, 130));
