@@ -1,5 +1,6 @@
 'use strict';
 
+var num = 19; // чтоб линтер не ругался
 var similarAds = [
   {
     author: {
@@ -10,7 +11,7 @@ var similarAds = [
   {
     offer: {
       title: 'BLAH!', // строка, заголовок предложения
-      address: '', // строка, адрес предложения. Для простоты пусть пока представляет собой
+      address: '600, 350', // строка, адрес предложения. Для простоты пусть пока представляет собой
       // запись вида "{{location.x}}, {{location.y}}", например, "600, 350"
       price: num, // число, стоимость
       type: '', // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
@@ -18,26 +19,36 @@ var similarAds = [
       guests: num, // число, количество гостей, которое можно разместить
       checkin: '', // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
       checkout: '', // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
-      features: '', // массив строк случайной длины из ниже предложенных: "wifi", "dishwasher",
-      // "parking", "washer", "elevator", "conditioner",
+      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+      // массив строк случайной длины из ниже предложенных:
       description: '', // строка с описанием
-      photos: '', // массив строк случайной длины, содержащий адреса фотографий
-      // "http://o0.github.io/assets/images/tokyo/hotel1.jpg",
-      // "http://o0.github.io/assets/images/tokyo/hotel2.jpg",
-      // "http://o0.github.io/assets/images/tokyo/hotel3.jpg"
+      photos: [
+        'http://o0.github.io/assets/images/tokyo/hotel' + num + '.jpg',
+        'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+        'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
+      ], // массив строк случайной длины, содержащий адреса фотографий
     }
   },
   {
     location: {
       x: num, // случайное число, координата x метки на карте.
-      // Значение ограничено размерами блока, в котором перетаскивается метка
+      // Значение ограничено размерами блока, в котором перетаскивается метка = 1200
       y: num, // случайное число, координата y метки на карте от 130 до 630
     }
   }
 ];
 
-// ============== ОТЛАДКА ============== //
-console.log(similarAds[1].offer.title);
 
-// var map = document.querySelector('.map');
-// map.classList.remove('.map--faded');
+var map = document.querySelector('.map');
+
+map.classList.remove('map--faded');
+
+var userPin = document.querySelector('#pin').content.querySelector('.map__pin');
+// ============== ОТЛАДКА ============== //
+console.log(userPin);
+
+var userPinList = document.querySelector('.map__pins');
+var userPinElement = userPin.cloneNode(true);
+userPinList.appendChild(userPinElement);
+// ============== ОТЛАДКА ============== //
+console.log(userPinList);
