@@ -4,7 +4,7 @@ var num = 19; // чтоб линтер не ругался
 var similarAds = [
   {
     author: {
-      avatar: 'img/avatars/user03.png'
+      avatar: 'im/avatars/user03.png'
     } // где {{xx}} это число от 1 до 8 с ведущим нулём.
     // Например, 01, 02 и т. д. Адреса изображений не повторяются
   },
@@ -53,6 +53,7 @@ userPin.style.top = "200px";
 var userPinImg = userPin.querySelector('img');
 
 userPinImg.src = similarAds[0].author.avatar;
+userPinImg.alt = 'Заголовок объявления';
 
 var userPinList = document.querySelector('.map__pins');
 var userPinElement = userPin.cloneNode(true);
