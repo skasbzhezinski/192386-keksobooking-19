@@ -4,7 +4,7 @@ var num = 19; // чтоб линтер не ругался
 var similarAds = [
   {
     author: {
-      avatar: 'img/avatars/user**{{xx}}**.png'
+      avatar: 'img/avatars/user03.png'
     } // где {{xx}} это число от 1 до 8 с ведущим нулём.
     // Например, 01, 02 и т. д. Адреса изображений не повторяются
   },
@@ -31,7 +31,7 @@ var similarAds = [
   },
   {
     location: {
-      x: num, // случайное число, координата x метки на карте.
+      x: 900, // случайное число, координата x метки на карте.
       // Значение ограничено размерами блока, в котором перетаскивается метка = 1200
       y: num, // случайное число, координата y метки на карте от 130 до 630
     }
@@ -47,6 +47,13 @@ var userPin = document.querySelector('#pin').content.querySelector('.map__pin');
 // ============== ОТЛАДКА ============== //
 console.log(userPin);
 
+userPin.style.left = similarAds[2].location.x + 'px';
+userPin.style.top = "200px";
+
+var userPinImg = userPin.querySelector('img');
+
+userPinImg.src = similarAds[0].author.avatar;
+
 var userPinList = document.querySelector('.map__pins');
 var userPinElement = userPin.cloneNode(true);
 userPinList.appendChild(userPinElement);
@@ -57,6 +64,9 @@ console.log(similarAds.length);
 var getRandomBetween = function (max, min) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
+
+
+console.log(userPin);
 
 // ============== ОТЛАДКА ============== //
 console.log(getRandomBetween(630, 130));
