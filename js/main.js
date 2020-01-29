@@ -14,7 +14,7 @@ var createSimilarAds = function () {
   for (var i = 0; i < quantityOfObjects; i++) {
     similarAds[i] = {
       author: {
-        avatar: 'img/avatars/user0' + getRandomBetween(8, 1) + '.png'
+        avatar: 'img/avatars/user0' + getRandomBetween(8, 1) + '.png',
       }, // где {{xx}} это число от 1 до 8 с ведущим нулём.
       // Например, 01, 02 и т. д. Адреса изображений не повторяются
 
@@ -48,29 +48,41 @@ var createSimilarAds = function () {
   return similarAds;
 };
 
-var similarAds = createSimilarAds();
-// ============== отладка ============== //
-
-console.log(similarAds);
-console.log(similarAds[0]);
-console.log(similarAds[0].author);
-console.log(similarAds[0].location);
-console.log(similarAds[0].location.x);
-console.log(similarAds[0].author.avatar);
-
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
 var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-//userPinTemplate.style.left = similarAds[0].location.x - PIN_WIDTH / 2 + 'px';
-userPinTemplate.style.top = similarAds[0].location.y + 'px';
+userPinTemplate.style.left = createSimilarAds()[0].location.x - PIN_WIDTH / 2 + 'px';
+userPinTemplate.style.top = createSimilarAds()[0].location.y + 'px';
 
 var userPinImg = userPinTemplate.querySelector('img');
 
-userPinImg.src = similarAds[0].author.avatar;
+userPinImg.src = createSimilarAds()[0].author.avatar;
 userPinImg.alt = 'Заголовок объявления';
 
 var userPinList = document.querySelector('.map__pins');
 var userPinElement = userPinTemplate.cloneNode(true);
 userPinList.appendChild(userPinElement);
+
+/* еще раз */
+userPinTemplate.style.left = createSimilarAds()[0].location.x - PIN_WIDTH / 2 + 'px';
+userPinTemplate.style.top = createSimilarAds()[0].location.y + 'px';
+
+userPinImg.src = createSimilarAds()[0].author.avatar;
+userPinImg.alt = 'Заголовок объявления';
+
+userPinElement = userPinTemplate.cloneNode(true);
+userPinList.appendChild(userPinElement);
+
+/* еще раз */
+userPinTemplate.style.left = createSimilarAds()[0].location.x - PIN_WIDTH / 2 + 'px';
+userPinTemplate.style.top = createSimilarAds()[0].location.y + 'px';
+
+userPinImg.src = createSimilarAds()[0].author.avatar;
+userPinImg.alt = 'Заголовок объявления';
+
+userPinElement = userPinTemplate.cloneNode(true);
+userPinList.appendChild(userPinElement);
+// ============== отладка ============== //
+console.log(userPinList);
