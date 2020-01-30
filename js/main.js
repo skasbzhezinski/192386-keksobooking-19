@@ -14,7 +14,7 @@ var createSimilarAds = function () {
   for (var i = 0; i < quantityOfObjects; i++) {
     similarAds[i] = {
       author: {
-        avatar: 'img/avatars/user0' + getRandomBetween(8, 1) + '.png',
+        avatar: 'img/avatars/user0' + (i + 1) + '.png',
       }, // где {{xx}} это число от 1 до 8 с ведущим нулём.
       // Например, 01, 02 и т. д. Адреса изображений не повторяются
 
