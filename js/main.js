@@ -54,37 +54,19 @@ var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
 var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
-userPinTemplate.style.left = ads[0].location.x - PIN_WIDTH / 2 + 'px';
-userPinTemplate.style.top = ads[0].location.y + 'px';
-
 var userPinImg = userPinTemplate.querySelector('img');
 
-userPinImg.src = ads[0].author.avatar;
-userPinImg.alt = 'Заголовок объявления';
+for (var i = 0; i < 8; i++) {
+  userPinTemplate.style.left = ads[i].location.x - PIN_WIDTH / 2 + 'px';
+  userPinTemplate.style.top = ads[i].location.y + 'px';
 
-var userPinList = document.querySelector('.map__pins');
-var userPinElement = userPinTemplate.cloneNode(true);
-userPinList.appendChild(userPinElement);
+  userPinImg.src = ads[i].author.avatar;
+  userPinImg.alt = 'Заголовок объявления';
 
-/* еще раз */
-userPinTemplate.style.left = ads[1].location.x - PIN_WIDTH / 2 + 'px';
-userPinTemplate.style.top = ads[1].location.y + 'px';
+  var userPinList = document.querySelector('.map__pins');
+  var userPinElement = userPinTemplate.cloneNode(true);
+  userPinList.appendChild(userPinElement);
+}
 
-userPinImg.src = ads[1].author.avatar;
-userPinImg.alt = 'Заголовок объявления';
-
-userPinElement = userPinTemplate.cloneNode(true);
-userPinList.appendChild(userPinElement);
-
-/* еще раз */
-userPinTemplate.style.left = ads[2].location.x - PIN_WIDTH / 2 + 'px';
-userPinTemplate.style.top = ads[2].location.y + 'px';
-
-userPinImg.src = ads[2].author.avatar;
-userPinImg.alt = 'Заголовок объявления';
-
-userPinElement = userPinTemplate.cloneNode(true);
-userPinList.appendChild(userPinElement);
 // ============== отладка ============== //
 console.log(userPinList);
