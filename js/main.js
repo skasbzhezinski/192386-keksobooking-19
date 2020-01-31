@@ -9,6 +9,45 @@ var getRandomBetween = function (max, min) {
   return Math.round(Math.random() * (max - min)) + min;
 };
 
+// массивы
+var titles = [
+  'Милая, уютная квартирка в центре Токио',
+  'Квартира в жилом комплексе бизнес-класса',
+  'Срочно Продается 2-комнатная квартира в Сданном доме',
+  'Апартамент с готовым премиум-ремонтом в современном стиле!',
+  'Продаются 3-комнатные апартаменты, в строящемся доме',
+  'Продается теплая, солнечная квартира в очень хорошем состоянии',
+  'Квартира продается с мебелью и техникой!',
+  'Продаю студию 12,5 кв. м.'
+];
+
+var addresses = [
+  '600, 350',
+  '540, 210',
+  '119, 590',
+  '26, 496',
+  '232, 100',
+  '503, 40',
+  '360, 360',
+  '540, 165'
+];
+
+var types = [
+  'palace', 'flat', 'house', 'bungalo'
+];
+
+var times = [
+  '12:00', '13:00', '14:00'
+];
+
+var advantages = [
+  "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner",
+];
+
+var descriptions = [
+  ''
+];
+
 var createSimilarAds = function () {
   var similarAds = [];
   for (var i = 0; i < quantityOfObjects; i++) {
@@ -22,7 +61,7 @@ var createSimilarAds = function () {
         title: 'BLAH!', // строка, заголовок предложения
         address: '600, 350', // строка, адрес предложения. Для простоты пусть пока представляет собой
         // запись вида "{{location.x}}, {{location.y}}", например, "600, 350"
-        price: '', // число, стоимость
+        price: Math.round(getRandomBetween(1000000, 0) / 1000) * 1000, // число, стоимость
         type: '', // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
         rooms: '', // число, количество комнат
         guests: '', // число, количество гостей, которое можно разместить
@@ -67,6 +106,7 @@ for (var i = 0; i < 8; i++) {
   var userPinElement = userPinTemplate.cloneNode(true);
   userPinList.appendChild(userPinElement);
 }
+// временно активировать секцию notice
+document.querySelector('.ad-form').classList.remove('ad-form--disabled');
 
 // ============== отладка ============== //
-console.log(userPinList);
