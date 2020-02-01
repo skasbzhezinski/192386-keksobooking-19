@@ -13,12 +13,12 @@ var getRandomBetween = function (max, min) {
 var titles = [
   'Милая, уютная квартирка в центре Токио',
   'Квартира в жилом комплексе бизнес-класса',
-  'Срочно Продается 2-комнатная квартира в Сданном доме',
+  'Срочно сдается 2-комнатная квартира',
   'Апартамент с готовым премиум-ремонтом в современном стиле!',
-  'Продаются 3-комнатные апартаменты, в строящемся доме',
-  'Продается теплая, солнечная квартира в очень хорошем состоянии',
-  'Квартира продается с мебелью и техникой!',
-  'Продаю студию 12,5 кв. м.'
+  'Сдаются 3-комнатные апартаменты',
+  'Сдается теплая, солнечная квартира',
+  'Квартира сдается с мебелью и техникой!',
+  'Сдаю студию 12,5 кв. м.'
 ];
 
 var addresses = [
@@ -40,8 +40,8 @@ var times = [
   '12:00', '13:00', '14:00'
 ];
 
-var advantages = [
-  "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner",
+var proposedFeatures = [
+  'wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner',
 ];
 
 var descriptions = [
@@ -54,15 +54,13 @@ var createSimilarAds = function () {
     similarAds[i] = {
       author: {
         avatar: 'img/avatars/user0' + (i + 1) + '.png',
-      }, // где {{xx}} это число от 1 до 8 с ведущим нулём.
-      // Например, 01, 02 и т. д. Адреса изображений не повторяются
+      },
 
       offer: {
-        title: 'BLAH!', // строка, заголовок предложения
-        address: '600, 350', // строка, адрес предложения. Для простоты пусть пока представляет собой
-        // запись вида "{{location.x}}, {{location.y}}", например, "600, 350"
-        price: Math.round(getRandomBetween(1000000, 0) / 1000) * 1000, // число, стоимость
-        type: '', // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
+        title: titles[i],
+        address: addresses[i],
+        price: Math.round(getRandomBetween(1000000, 0) / 1000) * 1000,
+        type: types[getRandomBetween(types.length - 1, 0)], // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
         rooms: '', // число, количество комнат
         guests: '', // число, количество гостей, которое можно разместить
         checkin: '', // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
@@ -87,6 +85,12 @@ var createSimilarAds = function () {
   return similarAds;
 };
 
+// ============== отладка ============== //
+console.log(createSimilarAds()[2].offer.title);
+console.log(createSimilarAds()[3].offer.address);
+console.log(createSimilarAds()[3].offer.type);
+
+
 var ads = createSimilarAds();
 
 var map = document.querySelector('.map');
@@ -108,5 +112,3 @@ for (var i = 0; i < 8; i++) {
 }
 // временно активировать секцию notice
 document.querySelector('.ad-form').classList.remove('ad-form--disabled');
-
-// ============== отладка ============== //
