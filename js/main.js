@@ -5,9 +5,9 @@ var quantityOfObjects = 8;
 var PIN_WIDTH = 50; // ширина метки
 var MAP_WIDTH = 1200; // ширина блока .map__overlay
 
-var getRandomBetween = function (max, min) {
-  return Math.round(Math.random() * (max - min)) + min;
-};
+var proposedFeatures = [
+  'wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner',
+];
 
 // массивы
 var titles = [
@@ -36,21 +36,42 @@ var types = [
   'palace', 'flat', 'house', 'bungalo'
 ];
 
-var times = [
+var arrivalTimes = [
   '12:00', '13:00', '14:00'
-];
-
-var proposedFeatures = [
-  'wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner',
 ];
 
 var descriptions = [
   ''
 ];
 
+var getRandomBetween = function (max, min) {
+  return Math.round(Math.random() * (max - min)) + min;
+};
+
+// функция работает не корректно
+var getRandomLengthArr = function (arr) {
+  var newArr = [];
+  newArr[0] = arr[getRandomBetween(arr.length - 1, 0)];
+  var newArrLength = getRandomBetween(arr.length, 1);
+
+  for (var i = 1; i < newArrLength; i++) {
+    var interim = arr[getRandomBetween(arr.length - 1, 0)];
+    console.log('interim');
+    if (interim !== newArr[i - 1]) {
+      newArr[i] = interim;
+    }
+  }
+  console.log('длина нового массива');
+  console.log(newArrLength);
+  return newArr;
+};
+
+console.log(getRandomLengthArr(proposedFeatures));
+
 var createSimilarAds = function () {
   var similarAds = [];
   for (var i = 0; i < quantityOfObjects; i++) {
+    var checkinTime = arrivalTimes[getRandomBetween(2, 0)];
     similarAds[i] = {
       author: {
         avatar: 'img/avatars/user0' + (i + 1) + '.png',
@@ -60,13 +81,12 @@ var createSimilarAds = function () {
         title: titles[i],
         address: addresses[i],
         price: Math.round(getRandomBetween(1000000, 0) / 1000) * 1000,
-        type: types[getRandomBetween(types.length - 1, 0)], // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
-        rooms: '', // число, количество комнат
-        guests: '', // число, количество гостей, которое можно разместить
-        checkin: '', // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
-        checkout: '', // строка с одним из трёх фиксированных значений: 12:00, 13:00 или 14:00
-        features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-        // массив строк случайной длины из ниже предложенных:
+        type: types[getRandomBetween(types.length - 1, 0)],
+        rooms: getRandomBetween(10, 1),
+        guests: getRandomBetween(10, 1),
+        checkin: checkinTime,
+        checkout: checkinTime,
+        features: getRandomLengthArr(proposedFeatures),
         description: '', // строка с описанием
         photos: [
           'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
@@ -76,25 +96,24 @@ var createSimilarAds = function () {
       },
 
       location: {
-        x: getRandomBetween(0, MAP_WIDTH), // случайное число, координата x метки на карте.
-        // Значение ограничено размерами блока, в котором перетаскивается метка = 1200
-        y: getRandomBetween(630, 130), // случайное число, координата y метки на карте от 130 до 630
+        x: getRandomBetween(0, MAP_WIDTH),
+        y: getRandomBetween(630, 130),
       }
     };
+
+    // ============== отладка ============== //
+    console.log(similarAds[i].offer.title);
+    console.log(similarAds[i].offer.address);
+    console.log(similarAds[i].offer.type);
+    console.log(similarAds[i].offer.rooms);
+    console.log(similarAds[i].offer.checkin);
+    console.log(similarAds[i].offer.checkout);
+    console.log(similarAds[i].offer.features);
   }
   return similarAds;
 };
 
-// ============== отладка ============== //
-console.log(createSimilarAds()[2].offer.title);
-console.log(createSimilarAds()[3].offer.address);
-console.log(createSimilarAds()[3].offer.type);
-
-
 var ads = createSimilarAds();
-
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 
 var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var userPinImg = userPinTemplate.querySelector('img');
@@ -110,5 +129,9 @@ for (var i = 0; i < 8; i++) {
   var userPinElement = userPinTemplate.cloneNode(true);
   userPinList.appendChild(userPinElement);
 }
+
+var map = document.querySelector('.map');
+map.classList.remove('map--faded');
+
 // временно активировать секцию notice
 document.querySelector('.ad-form').classList.remove('ad-form--disabled');
