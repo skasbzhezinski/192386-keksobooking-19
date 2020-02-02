@@ -72,8 +72,6 @@ var getRandomLengthArr = function (array) {
   return newArr;
 };
 
-console.log(getRandomLengthArr(proposedFeatures));
-
 var createSimilarAds = function () {
   var similarAds = [];
   for (var i = 0; i < quantityOfObjects; i++) {
@@ -118,25 +116,37 @@ var createSimilarAds = function () {
   return similarAds;
 };
 
-var ads = createSimilarAds();
+// var ads = createSimilarAds();
 
 var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-var userPinImg = userPinTemplate.querySelector('img');
+// var userPinImg = userPinTemplate.querySelector('img');
 
-for (var i = 0; i < 8; i++) {
-  userPinTemplate.style.left = ads[i].location.x - PIN_WIDTH / 2 + 'px';
-  userPinTemplate.style.top = ads[i].location.y + 'px';
+// for (var i = 0; i < 8; i++) {
+//   userPinTemplate.style.left = ads[i].location.x - PIN_WIDTH / 2 + 'px';
+//   userPinTemplate.style.top = ads[i].location.y + 'px';
 
-  userPinImg.src = ads[i].author.avatar;
-  userPinImg.alt = 'Заголовок объявления';
+//   userPinImg.src = ads[i].author.avatar;
+//   userPinImg.alt = 'Заголовок объявления';
 
-  var userPinList = document.querySelector('.map__pins');
-  var userPinElement = userPinTemplate.cloneNode(true);
-  userPinList.appendChild(userPinElement);
-}
+//   var userPinList = document.querySelector('.map__pins');
+//   var userPinElement = userPinTemplate.cloneNode(true);
+//   userPinList.appendChild(userPinElement);
+// }
+
+var renderAds = function (adsArray) {
+  var adElement = userPinTemplate.cloneNode(true);
+  var adElementImg = adElement.querySelector('img');
+  adElement.style.left = adsArray[0].location.x - PIN_WIDTH / 2 + 'px';
+  adElement.style.top = adsArray[0].location.y + 'px';
+  adElementImg.src = adsArray[1].author.avatar;
+  adElementImg.alt = 'Заголовок объявления';
+
+  console.log('adElement');
+  console.log(adElement);
+  return adElement;
+};
+
+renderAds(createSimilarAds());
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
-
-// временно активировать секцию notice
-document.querySelector('.ad-form').classList.remove('ad-form--disabled');
