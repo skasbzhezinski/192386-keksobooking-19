@@ -15,7 +15,7 @@ var titles = [
   'Квартира в жилом комплексе бизнес-класса',
   'Срочно сдается 2-комнатная квартира',
   'Апартамент с готовым премиум-ремонтом в современном стиле!',
-  'Сдаются 3-комнатные апартаменты',
+  'Квартира с террасой',
   'Сдается теплая, солнечная квартира',
   'Квартира сдается с мебелью и техникой!',
   'Сдаю студию 12,5 кв. м.'
@@ -41,7 +41,20 @@ var arrivalTimes = [
 ];
 
 var descriptions = [
-  ''
+  'На длительный срок сдается роскошная двухкомнатна квартира с дизайнерским ремонтом',
+  'Только что построенная и отделанная квартира',
+  'В аренду на длительный срок предлагается двухкомнатная квартира',
+  'В зеленом районе столицы предлагается современная квартира',
+  'Светлая и просторная трехкомнатная квартира с отделкой в современном стиле',
+  'В аренду предлагается великолепная светлая 3-х комнатная квартира со свежим ремонтом.',
+  'Великолепная трехкомнатная квартира по индивидуальному дизайн-проекту',
+  'Предлагаем светлую, просторную, современную студию в одном из лучших и стильных районов столицы'
+];
+
+var photoAddresses = [
+  'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
 
 var getRandomBetween = function (max, min) {
@@ -49,20 +62,13 @@ var getRandomBetween = function (max, min) {
 };
 
 // функция работает не корректно
-var getRandomLengthArr = function (arr) {
+var getRandomLengthArr = function (array) {
   var newArr = [];
-  newArr[0] = arr[getRandomBetween(arr.length - 1, 0)];
-  var newArrLength = getRandomBetween(arr.length, 1);
-
-  for (var i = 1; i < newArrLength; i++) {
-    var interim = arr[getRandomBetween(arr.length - 1, 0)];
-    console.log('interim');
-    if (interim !== newArr[i - 1]) {
-      newArr[i] = interim;
-    }
+  newArr[0] = array[getRandomBetween(array.length - 1, 0)];
+  var newLength = getRandomBetween(array.length - 1, 0);
+  for (var i = 1; i < newLength; i++) {
+    newArr[i] = array[getRandomBetween(array.length - 1, 0)];
   }
-  console.log('длина нового массива');
-  console.log(newArrLength);
   return newArr;
 };
 
@@ -87,12 +93,8 @@ var createSimilarAds = function () {
         checkin: checkinTime,
         checkout: checkinTime,
         features: getRandomLengthArr(proposedFeatures),
-        description: '', // строка с описанием
-        photos: [
-          'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-          'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-          'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
-        ], // массив строк случайной длины, содержащий адреса фотографий
+        description: descriptions[i],
+        photos: getRandomLengthArr(photoAddresses)
       },
 
       location: {
@@ -109,6 +111,9 @@ var createSimilarAds = function () {
     console.log(similarAds[i].offer.checkin);
     console.log(similarAds[i].offer.checkout);
     console.log(similarAds[i].offer.features);
+    console.log(similarAds[i].offer.photos);
+    console.log(similarAds[i].offer.description);
+    console.log('\n\n\n');
   }
   return similarAds;
 };
