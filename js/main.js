@@ -8,12 +8,8 @@ var MAP_WIDTH = 1200; // ширина блока .map__overlay
 var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPins = document.querySelector('.map__pins');
 
-var proposedFeatures = [
-  'wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner',
-];
-
 // массивы
-var titles = [
+var adTitles = [
   'Милая, уютная квартирка в центре Токио',
   'Квартира в жилом комплексе бизнес-класса',
   'Срочно сдается 2-комнатная квартира',
@@ -24,7 +20,7 @@ var titles = [
   'Сдаю студию 12,5 кв. м.'
 ];
 
-var addresses = [
+var housingAddresses = [
   '600, 350',
   '540, 210',
   '119, 590',
@@ -35,7 +31,7 @@ var addresses = [
   '540, 165'
 ];
 
-var types = [
+var housingTypes = [
   'palace', 'flat', 'house', 'bungalo'
 ];
 
@@ -43,7 +39,11 @@ var arrivalTimes = [
   '12:00', '13:00', '14:00'
 ];
 
-var descriptions = [
+var proposedFeatures = [
+  'wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner',
+];
+
+var adDescriptions = [
   'На длительный срок сдается роскошная двухкомнатна квартира с дизайнерским ремонтом',
   'Только что построенная и отделанная квартира',
   'В аренду на длительный срок предлагается двухкомнатная квартира',
@@ -54,7 +54,7 @@ var descriptions = [
   'Предлагаем светлую, просторную, современную студию в одном из лучших и стильных районов столицы'
 ];
 
-var photoAddresses = [
+var adPhotoAddresses = [
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
@@ -75,7 +75,7 @@ var getRandomLengthArr = function (array) {
   return newArr;
 };
 
-var createSimilarAds = function () {
+var createSimilarAds = function (titles, addresses, types, descriptions, photoAddresses) {
   var similarAds = [];
   for (var i = 0; i < quantityOfObjects; i++) {
     var checkinTime = arrivalTimes[getRandomBetween(2, 0)];
@@ -105,51 +105,31 @@ var createSimilarAds = function () {
     };
 
     // ============== отладка ============== //
-    console.log(similarAds[i].offer.title);
-    console.log(similarAds[i].offer.address);
-    console.log(similarAds[i].offer.type);
-    console.log(similarAds[i].offer.rooms);
-    console.log(similarAds[i].offer.checkin);
-    console.log(similarAds[i].offer.checkout);
-    console.log(similarAds[i].offer.features);
-    console.log(similarAds[i].offer.photos);
-    console.log(similarAds[i].offer.description);
-    console.log('\n\n\n');
+    // console.log(similarAds[i].offer.title);
+    // console.log(similarAds[i].offer.address);
+    // console.log(similarAds[i].offer.type);
+    // console.log(similarAds[i].offer.rooms);
+    // console.log(similarAds[i].offer.checkin);
+    // console.log(similarAds[i].offer.checkout);
+    // console.log(similarAds[i].offer.features);
+    // console.log(similarAds[i].offer.photos);
+    // console.log(similarAds[i].offer.description);
+    // console.log('\n\n\n');
   }
   return similarAds;
 };
 
-// var ads = createSimilarAds();
-
-
-// var userPinImg = userPinTemplate.querySelector('img');
-
-// for (var i = 0; i < 8; i++) {
-//   userPinTemplate.style.left = ads[i].location.x - PIN_WIDTH / 2 + 'px';
-//   userPinTemplate.style.top = ads[i].location.y + 'px';
-
-//   userPinImg.src = ads[i].author.avatar;
-//   userPinImg.alt = 'Заголовок объявления';
-
-//   var userPinList = document.querySelector('.map__pins');
-//   var userPinElement = userPinTemplate.cloneNode(true);
-//   userPinList.appendChild(userPinElement);
-// }
-
 var renderAds = function (adsArray) {
   var adElement = userPinTemplate.cloneNode(true);
   var adElementImg = adElement.querySelector('img');
+
   adElement.style.left = adsArray.location.x - PIN_WIDTH / 2 + 'px';
   adElement.style.top = adsArray.location.y + 'px';
   adElementImg.src = adsArray.author.avatar;
   adElementImg.alt = 'Заголовок объявления';
 
-  // console.log('adElement');
-  // console.log(adElement);
   return adElement;
 };
-
-// renderAds(createSimilarAds());
 
 var addElement = function (elementsArray) {
   var fragment = document.createDocumentFragment();
@@ -160,13 +140,13 @@ var addElement = function (elementsArray) {
 };
 
 var insertElements = function () {
-  mapPins.appendChild(addElement(createSimilarAds()));
+  mapPins.appendChild(addElement(createSimilarAds(adTitles, housingAddresses, housingTypes, adDescriptions, adPhotoAddresses)));
 };
 
 insertElements();
 
 // =============  отладка  ============ //
-console.log('mapPins');
+console.log('Добавляю метки объявлений ');
 console.log(mapPins);
 
 var map = document.querySelector('.map');
