@@ -5,6 +5,9 @@ var quantityOfObjects = 8;
 var PIN_WIDTH = 50; // ширина метки
 var MAP_WIDTH = 1200; // ширина блока .map__overlay
 
+var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var mapPins = document.querySelector('.map__pins');
+
 var proposedFeatures = [
   'wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner',
 ];
@@ -118,7 +121,7 @@ var createSimilarAds = function () {
 
 // var ads = createSimilarAds();
 
-var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+
 // var userPinImg = userPinTemplate.querySelector('img');
 
 // for (var i = 0; i < 8; i++) {
@@ -136,17 +139,35 @@ var userPinTemplate = document.querySelector('#pin').content.querySelector('.map
 var renderAds = function (adsArray) {
   var adElement = userPinTemplate.cloneNode(true);
   var adElementImg = adElement.querySelector('img');
-  adElement.style.left = adsArray[0].location.x - PIN_WIDTH / 2 + 'px';
-  adElement.style.top = adsArray[0].location.y + 'px';
-  adElementImg.src = adsArray[1].author.avatar;
+  adElement.style.left = adsArray.location.x - PIN_WIDTH / 2 + 'px';
+  adElement.style.top = adsArray.location.y + 'px';
+  adElementImg.src = adsArray.author.avatar;
   adElementImg.alt = 'Заголовок объявления';
 
-  console.log('adElement');
-  console.log(adElement);
+  // console.log('adElement');
+  // console.log(adElement);
   return adElement;
 };
 
-renderAds(createSimilarAds());
+// renderAds(createSimilarAds());
+
+var addElement = function (elementsArray) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < elementsArray.length; i++) {
+    fragment.appendChild(renderAds(elementsArray[i]));
+  }
+  return fragment;
+};
+
+var insertElements = function () {
+  mapPins.appendChild(addElement(createSimilarAds()));
+};
+
+insertElements();
+
+// =============  отладка  ============ //
+console.log('mapPins');
+console.log(mapPins);
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
