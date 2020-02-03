@@ -64,13 +64,11 @@ var getRandomBetween = function (max, min) {
   return Math.round(Math.random() * (max - min)) + min;
 };
 
-// функция работает не корректно
 var getRandomLengthArr = function (array) {
   var newArr = [];
-  newArr[0] = array[getRandomBetween(array.length - 1, 0)];
-  var newLength = getRandomBetween(array.length - 1, 0);
-  for (var i = 1; i < newLength; i++) {
-    newArr[i] = array[getRandomBetween(array.length - 1, 0)];
+  var newLength = getRandomBetween(array.length, 0);
+  for (var i = 0; i < newLength; i++) {
+    newArr[i] = array[i];
   }
   return newArr;
 };
