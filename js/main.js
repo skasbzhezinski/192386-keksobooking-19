@@ -141,11 +141,31 @@ var insertElements = function () {
   mapPins.appendChild(addElement(createSimilarAds(adTitles, housingAddresses, housingTypes, adDescriptions, adPhotoAddresses)));
 };
 
-insertElements();
+var activate = function () {
+  insertElements();
+  var map = document.querySelector('.map');
+  map.classList.remove('map--faded');
+};
 
-// =============  отладка  ============ //
-// console.log('Добавляю метки объявлений ');
-// console.log(mapPins);
+// activate();
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+// ============== отладка ============== //
+// console.log(adForm);
+// console.log(adFormElements.length);
+// console.log(adFormElements);
+
+var adFormElements = document.querySelectorAll('.ad-form fieldset');
+
+var disableAdFormElements = function () {
+  for (var j = 0; j < adFormElements.length; j++) {
+    adFormElements[j].disabled = true;
+    // ============== отладка ============== //
+    console.log(adFormElements[j]);
+  }
+};
+
+disableAdFormElements();
+
+var mainPin = mapPins.querySelector('.map__pin--main');
+// ============== отладка ============== //
+// console.log(mainPin);
