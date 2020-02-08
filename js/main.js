@@ -197,3 +197,20 @@ mainPin.addEventListener('keydown', function (evt) {
     numberOfActivations++;
   }
 });
+
+var address = notice.querySelector('#address');
+// ============== отладка ============== //
+console.log(address);
+
+
+
+var mainPinButton = mapPins.querySelector('.map__pin--main');
+var mainPinX = parseInt(mainPinButton.style.left);
+var mainPinY = parseInt(mainPinButton.style.top);
+
+address.value = mainPinX + ', ' + mainPinY;
+
+// ============== отладка ============== /
+// console.log(mainPinButton);
+console.log(parseInt(mainPinX));
+console.log(parseInt(mainPinY));
