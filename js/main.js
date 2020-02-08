@@ -101,18 +101,6 @@ var createSimilarAds = function (titles, addresses, types, descriptions, photoAd
         y: getRandomBetween(630, 130),
       }
     };
-
-    // ============== отладка ============== //
-    // console.log(similarAds[i].offer.title);
-    // console.log(similarAds[i].offer.address);
-    // console.log(similarAds[i].offer.type);
-    // console.log(similarAds[i].offer.rooms);
-    // console.log(similarAds[i].offer.checkin);
-    // console.log(similarAds[i].offer.checkout);
-    // console.log(similarAds[i].offer.features);
-    // console.log(similarAds[i].offer.photos);
-    // console.log(similarAds[i].offer.description);
-    // console.log('\n\n\n');
   }
   return similarAds;
 };
@@ -141,11 +129,71 @@ var insertElements = function () {
   mapPins.appendChild(addElement(createSimilarAds(adTitles, housingAddresses, housingTypes, adDescriptions, adPhotoAddresses)));
 };
 
-insertElements();
-
-// =============  отладка  ============ //
-// console.log('Добавляю метки объявлений ');
-// console.log(mapPins);
-
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+var notice = document.querySelector('.notice');
+
+var adForm = notice.querySelector('.ad-form');
+
+var adFormElements = adForm.querySelectorAll('.ad-form fieldset');
+var filterSelects = map.querySelectorAll('.map__filter');
+var housingFeatures = map.querySelectorAll('.map__checkbox');
+
+var disableMapFilterElements = function () {
+  for (var i = 0; i < filterSelects.length; i++) {
+    filterSelects[i].disabled = true;
+  }
+  for (var j = 0; j < housingFeatures.length; j++) {
+    housingFeatures[j].disabled = true;
+  }
+};
+
+var anableMapFilterElements = function () {
+  for (var i = 0; i < filterSelects.length; i++) {
+    filterSelects[i].disabled = false;
+  }
+  for (var j = 0; j < housingFeatures.length; j++) {
+    housingFeatures[j].disabled = false;
+  }
+};
+
+var disableAdFormElements = function () {
+  for (var j = 0; j < adFormElements.length; j++) {
+    adFormElements[j].disabled = true;
+  }
+};
+
+disableMapFilterElements(); // по дефолту запущена, переопределяется при активации
+disableAdFormElements(); // по дефолту запущена, переопределяется при активации
+
+var anableAdFormElements = function () {
+  for (var j = 0; j < adFormElements.length; j++) {
+    adFormElements[j].disabled = false;
+  }
+};
+
+var activate = function () {
+  insertElements();
+
+  adForm.classList.remove('ad-form--disabled');
+  map.classList.remove('map--faded');
+
+  anableMapFilterElements();
+  anableAdFormElements();
+};
+
+var mainPin = mapPins.querySelector('.map__pin--main');
+
+var numberOfActivations = 0; // счетчик активаций
+mainPin.addEventListener('mousedown', function (evt) {
+  if (evt.button === 0 && numberOfActivations === 0) {
+    activate();
+    numberOfActivations++;
+  }
+});
+
+mainPin.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter' && numberOfActivations === 0) {
+    activate();
+    numberOfActivations++;
+  }
+});
