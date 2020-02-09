@@ -4,6 +4,8 @@ var quantityOfObjects = 8;
 // var PIN_HEIGHT = 70; // высота метки
 var PIN_WIDTH = 50; // ширина метки
 var MAP_WIDTH = 1200; // ширина блока .map__overlay
+var MAIN_PIN_WIDTH = 65; // равна высоте в неактивном состоянии
+var MAIN_PIN_HEIGHT = 84;
 
 var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPins = document.querySelector('.map__pins');
@@ -179,6 +181,9 @@ var activate = function () {
 
   anableMapFilterElements();
   anableAdFormElements();
+
+  mainPinY = parseInt(mainPinButton.style.top) + MAIN_PIN_HEIGHT;
+  address.setAttribute('value', mainPinX + ', ' + mainPinY);
 };
 
 var mainPin = mapPins.querySelector('.map__pin--main');
@@ -199,18 +204,9 @@ mainPin.addEventListener('keydown', function (evt) {
 });
 
 var address = notice.querySelector('#address');
-// ============== отладка ============== //
-console.log(address);
-
-
 
 var mainPinButton = mapPins.querySelector('.map__pin--main');
-var mainPinX = parseInt(mainPinButton.style.left);
-var mainPinY = parseInt(mainPinButton.style.top);
+var mainPinX = parseInt(mainPinButton.style.left) + Math.round(MAIN_PIN_WIDTH / 2);
+var mainPinY = parseInt(mainPinButton.style.top) + Math.round(MAIN_PIN_WIDTH / 2);
 
-address.value = mainPinX + ', ' + mainPinY;
-
-// ============== отладка ============== /
-// console.log(mainPinButton);
-console.log(parseInt(mainPinX));
-console.log(parseInt(mainPinY));
+address.setAttribute('value', mainPinX + ', ' + mainPinY);
