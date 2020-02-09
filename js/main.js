@@ -131,6 +131,8 @@ var insertElements = function () {
   mapPins.appendChild(addElement(createSimilarAds(adTitles, housingAddresses, housingTypes, adDescriptions, adPhotoAddresses)));
 };
 
+// Активация страницы
+
 var adMap = document.querySelector('.map');
 var notice = document.querySelector('.notice');
 
@@ -203,6 +205,8 @@ mainPin.addEventListener('keydown', function (evt) {
   }
 });
 
+// Заполнение поля адреса
+
 var address = notice.querySelector('#address');
 
 var mainPinButton = mapPins.querySelector('.map__pin--main');
@@ -212,3 +216,33 @@ var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(MAIN_PIN_WID
 address.setAttribute('value', mainPinX + ', ' + mainPinY);
 
 // Непростая валидация
+var roomNumber = adForm.querySelector('#room_number');
+var capacity = adForm.querySelector('#capacity');
+
+// ======== ОТЛАДКА ======== //
+console.log(roomNumber.value === 1);
+
+console.log(capacity);
+console.log(capacity.validity);
+console.log(capacity.validity.valid);
+console.log('capacity.value', capacity.value);
+console.log(typeof capacity.value);
+capacity[3].setAttribute('disabled', '');
+console.log(capacity[3]);
+// capacity.validity.valid = false; validity - только для чтения
+
+// логика:
+if (Number(roomNumber.value) === 1 && (Number(capacity.value) === 0 ||
+  Number(capacity.value) === 2 || Number(capacity.value) === 3)) {
+  console.log('Количество мест не должно превышать количество комнат. Выберите "для 1 гостя"');
+}
+if (Number(roomNumber.value) === 2 && (Number(capacity.value) === 0 ||
+  Number(capacity.value) === 3)) {
+  console.log('Количество мест не должно превышать количество комнат. Выберите "для 1 гостя" или "для 2 гостей"');
+}
+if (Number(roomNumber.value) === 3 && Number(capacity.value) === 0) {
+  console.log('Выберите из вариантов: "для 1 гостя", "для 2 гостей", "для 3 гостей"');
+}
+if (Number(roomNumber.value) === 100 && Number(capacity.value) !== 0) {
+  console.log('Выберите "не для гостей"');
+}
