@@ -131,14 +131,14 @@ var insertElements = function () {
   mapPins.appendChild(addElement(createSimilarAds(adTitles, housingAddresses, housingTypes, adDescriptions, adPhotoAddresses)));
 };
 
-var map = document.querySelector('.map');
+var adMap = document.querySelector('.map');
 var notice = document.querySelector('.notice');
 
 var adForm = notice.querySelector('.ad-form');
 
 var adFormElements = adForm.querySelectorAll('.ad-form fieldset');
-var filterSelects = map.querySelectorAll('.map__filter');
-var housingFeatures = map.querySelectorAll('.map__checkbox');
+var filterSelects = adMap.querySelectorAll('.map__filter');
+var housingFeatures = adMap.querySelectorAll('.map__checkbox');
 
 var disableMapFilterElements = function () {
   for (var i = 0; i < filterSelects.length; i++) {
@@ -177,7 +177,7 @@ var activate = function () {
   insertElements();
 
   adForm.classList.remove('ad-form--disabled');
-  map.classList.remove('map--faded');
+  adMap.classList.remove('map--faded');
 
   anableMapFilterElements();
   anableAdFormElements();
@@ -210,3 +210,5 @@ var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(MAIN_PIN_WI
 var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(MAIN_PIN_WIDTH / 2);
 
 address.setAttribute('value', mainPinX + ', ' + mainPinY);
+
+// Непростая валидация
