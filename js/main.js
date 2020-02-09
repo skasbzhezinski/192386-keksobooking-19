@@ -182,7 +182,7 @@ var activate = function () {
   anableMapFilterElements();
   anableAdFormElements();
 
-  mainPinY = parseInt(mainPinButton.style.top) + MAIN_PIN_HEIGHT;
+  mainPinY = parseInt((mainPinButton.style.top), 10) + MAIN_PIN_HEIGHT;
   address.setAttribute('value', mainPinX + ', ' + mainPinY);
 };
 
@@ -206,7 +206,7 @@ mainPin.addEventListener('keydown', function (evt) {
 var address = notice.querySelector('#address');
 
 var mainPinButton = mapPins.querySelector('.map__pin--main');
-var mainPinX = parseInt(mainPinButton.style.left) + Math.round(MAIN_PIN_WIDTH / 2);
-var mainPinY = parseInt(mainPinButton.style.top) + Math.round(MAIN_PIN_WIDTH / 2);
+var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(MAIN_PIN_WIDTH / 2);
+var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(MAIN_PIN_WIDTH / 2);
 
 address.setAttribute('value', mainPinX + ', ' + mainPinY);
