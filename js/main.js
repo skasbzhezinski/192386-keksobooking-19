@@ -189,20 +189,36 @@ var activate = function () {
   address.setAttribute('value', mainPinX + ', ' + mainPinY);
 };
 
+// var mainPin = mapPins.querySelector('.map__pin--main');
+
+// var numberOfActivations = 0; // счетчик активаций
+// mainPin.addEventListener('mousedown', function (evt) {
+//   if (evt.button === 0 && numberOfActivations === 0) {
+//     activate();
+//     numberOfActivations++;
+//   }
+// });
+
 var mainPin = mapPins.querySelector('.map__pin--main');
 
-var numberOfActivations = 0; // счетчик активаций
+var notActivatedYet = true;
 mainPin.addEventListener('mousedown', function (evt) {
-  if (evt.button === 0 && numberOfActivations === 0) {
+  if (notActivatedYet === false) {
+    return;
+  }
+  if (evt.button === 0) {
     activate();
-    numberOfActivations++;
+    notActivatedYet = false;
   }
 });
 
 mainPin.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter' && numberOfActivations === 0) {
+  if (notActivatedYet === false) {
+    return;
+  }
+  if (evt.key === 'Enter') {
     activate();
-    numberOfActivations++;
+    notActivatedYet = false;
   }
 });
 
@@ -212,7 +228,7 @@ var address = notice.querySelector('#address');
 
 var mainPinButton = mapPins.querySelector('.map__pin--main');
 var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(MAIN_PIN_WIDTH / 2);
-var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(MAIN_PIN_WIDTH / 2);
+var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(MAIN_PIN_HEIGHT / 2);
 
 address.setAttribute('value', mainPinX + ', ' + mainPinY);
 
