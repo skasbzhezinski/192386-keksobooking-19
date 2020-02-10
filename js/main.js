@@ -140,8 +140,13 @@ var notice = document.querySelector('.notice');
 var adForm = notice.querySelector('.ad-form');
 
 var adFormElements = adForm.querySelectorAll('.ad-form fieldset');
-var filterSelects = adMap.querySelectorAll('.map__filter');
+var filterSelects = adMap.querySelectorAll('.map__filter'); // !!! .map__filters option, .map__filters input
 var housingFeatures = adMap.querySelectorAll('.map__checkbox');
+
+// =========== отладка =========== //
+var filterElement = adMap.querySelectorAll('.map__filters select, .map__filters input');
+filterElement[1].setAttribute('disabled', 'disabled');
+// console.log(filterElement[1]);
 
 var disableMapFilterElements = function () {
   for (var i = 0; i < filterSelects.length; i++) {
