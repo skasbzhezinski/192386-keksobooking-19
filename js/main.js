@@ -140,46 +140,35 @@ var notice = document.querySelector('.notice');
 var adForm = notice.querySelector('.ad-form');
 
 var adFormElements = adForm.querySelectorAll('.ad-form fieldset');
-var filterSelects = adMap.querySelectorAll('.map__filter'); // !!! .map__filters option, .map__filters input
-var housingFeatures = adMap.querySelectorAll('.map__checkbox');
-
-// =========== отладка =========== //
-var filterElement = adMap.querySelectorAll('.map__filters select, .map__filters input');
-filterElement[1].setAttribute('disabled', 'disabled');
-// console.log(filterElement[1]);
+var filterElements = adMap.querySelectorAll('.map__filters select, .map__filters input');
 
 var disableMapFilterElements = function () {
-  for (var i = 0; i < filterSelects.length; i++) {
-    filterSelects[i].disabled = true;
-  }
-  for (var j = 0; j < housingFeatures.length; j++) {
-    housingFeatures[j].disabled = true;
-  }
-};
-
-var anableMapFilterElements = function () {
-  for (var i = 0; i < filterSelects.length; i++) {
-    filterSelects[i].disabled = false;
-  }
-  for (var j = 0; j < housingFeatures.length; j++) {
-    housingFeatures[j].disabled = false;
+  for (var i = 0; i < filterElements.length; i++) {
+    filterElements[i].setAttribute('disabled', '');
   }
 };
 
 var disableAdFormElements = function () {
   for (var j = 0; j < adFormElements.length; j++) {
-    adFormElements[j].disabled = true;
+    adFormElements[j].setAttribute('disabled', '');
+  }
+};
+
+var anableAdFormElements = function () {
+  for (var j = 0; j < adFormElements.length; j++) {
+    adFormElements[j].removeAttribute('disabled');
+  }
+};
+
+var anableMapFilterElements = function () {
+  for (var i = 0; i < filterElements.length; i++) {
+    filterElements[i].removeAttribute('disabled');
   }
 };
 
 disableMapFilterElements(); // по дефолту запущена, переопределяется при активации
 disableAdFormElements(); // по дефолту запущена, переопределяется при активации
 
-var anableAdFormElements = function () {
-  for (var j = 0; j < adFormElements.length; j++) {
-    adFormElements[j].disabled = false;
-  }
-};
 
 var activate = function () {
   insertElements();
