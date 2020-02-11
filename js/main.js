@@ -101,18 +101,6 @@ var createSimilarAds = function (titles, addresses, types, descriptions, photoAd
         y: getRandomBetween(630, 130),
       }
     };
-
-    // ============== отладка ============== //
-    // console.log(similarAds[i].offer.title);
-    // console.log(similarAds[i].offer.address);
-    // console.log(similarAds[i].offer.type);
-    // console.log(similarAds[i].offer.rooms);
-    // console.log(similarAds[i].offer.checkin);
-    // console.log(similarAds[i].offer.checkout);
-    // console.log(similarAds[i].offer.features);
-    // console.log(similarAds[i].offer.photos);
-    // console.log(similarAds[i].offer.description);
-    // console.log('\n\n\n');
   }
   return similarAds;
 };
@@ -149,3 +137,10 @@ insertElements();
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
+
+// 7. Личный проект: больше деталей (часть 2)
+
+var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+
+// =============  отладка  ============ //
+console.log(userCardTemplate);
