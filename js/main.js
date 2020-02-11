@@ -231,56 +231,22 @@ address.setAttribute('value', mainPinX + ', ' + mainPinY);
 var roomNumber = adForm.querySelector('#room_number');
 var capacity = adForm.querySelector('#capacity');
 
-// var message = [
-//   'Количество мест не должно превышать количество комнат',
-//   '100 комнат не для гостей',
-//   ''
-// ];
+var message = [
+    'Количество мест не должно превышать количество комнат',
+    '100 комнат не для гостей',
+    'Укажите количество мест',
+    ''
+];
 
-// roomNumber.addEventListener('change', function () {
-//   if ((roomNumber.value < capacity.value && roomNumber.value !== '100')
-//   || (roomNumber.value === '100' && capacity.value !== '0')) {
-//     roomNumber.setCustomValidity(message[0]);
-//   }
-//   roomNumber.setCustomValidity(message[2]);
-// });
-
-var message = '';
-roomNumber.addEventListener('change', function () {
-  if (parseInt(roomNumber.value, 10) < parseInt(capacity.value, 10) && roomNumber.value !== '100') {
-    message = 'Количество мест не должно превышать количество комнат';
-    roomNumber.setCustomValidity(message);
-  } else if (roomNumber.value === '100' && parseInt(capacity.value, 10) > 0) {
-    message = 'другое';
-    roomNumber.setCustomValidity(message);
-  } else if (roomNumber.value === '100' && parseInt(capacity.value, 10) === 0) {
-    message = '';
-    roomNumber.setCustomValidity(message);
-  }
+adForm.addEventListener('change', function () {
+    if ((roomNumber.value === '100') && (capacity.value !== '0')) {
+        roomNumber.setCustomValidity(message[1]);
+    } else if (roomNumber.value < capacity.value) {
+        roomNumber.setCustomValidity(message[0]);
+    } else if (roomNumber.value !== '100' && capacity.value === '0') {
+        roomNumber.setCustomValidity(message[2]);
+    } else {
+        roomNumber.setCustomValidity(message[3]);
+    }
 });
 
-// var message = '';
-// roomNumber.addEventListener('change', function () {
-//   if (roomNumber.value < capacity.value || (roomNumber.value === '100' && capacity.value > '0')) {
-//     message = 'Количество мест не должно превышать количество комнат. 100 комнат не для гостей';
-//     roomNumber.setCustomValidity(message);
-//     capacity.setCustomValidity(message);
-//   } else {
-//     message = '';
-//   }
-// });
-
-// console.log(typeof roomNumber.value);
-// console.log(roomNumber.value < capacity.value);
-// console.log(roomNumber.value < capacity.value || (roomNumber.value === '100' && capacity.value === '0'));
-
-// capacity.addEventListener('change', function () {
-//   if (roomNumber.value === '1' && (capacity.value === '0' ||
-//     capacity.value === '2' || capacity.value === '3')) {
-//     roomNumber.setCustomValidity('Количество мест не должно превышать количество комнат. Выберите "для 1 гостя" в поле справа');
-//     capacity.setCustomValidity('Количество мест не должно превышать количество комнат. Выберите "для 1 гостя"');
-//   } else {
-//     roomNumber.setCustomValidity('');
-//     capacity.setCustomValidity('');
-//   }
-// });
