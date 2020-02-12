@@ -232,21 +232,21 @@ var roomNumber = adForm.querySelector('#room_number');
 var capacity = adForm.querySelector('#capacity');
 
 var message = [
-    'Количество мест не должно превышать количество комнат',
-    '100 комнат не для гостей',
-    'Укажите количество мест',
-    ''
+  'Количество мест не должно превышать количество комнат',
+  '100 комнат не для гостей',
+  'Укажите количество мест',
+  ''
 ];
 
 adForm.addEventListener('change', function () {
-    if ((roomNumber.value === '100') && (capacity.value !== '0')) {
-        roomNumber.setCustomValidity(message[1]);
-    } else if (roomNumber.value < capacity.value) {
-        roomNumber.setCustomValidity(message[0]);
-    } else if (roomNumber.value !== '100' && capacity.value === '0') {
-        roomNumber.setCustomValidity(message[2]);
-    } else {
-        roomNumber.setCustomValidity(message[3]);
-    }
+  if ((roomNumber.value === '100') && (capacity.value !== '0')) {
+    roomNumber.setCustomValidity(message[1]);
+  } else if (roomNumber.value < capacity.value) {
+    roomNumber.setCustomValidity(message[0]);
+  } else if (roomNumber.value !== '100' && capacity.value === '0') {
+    roomNumber.setCustomValidity(message[2]);
+  } else {
+    roomNumber.setCustomValidity(message[3]);
+  }
 });
 
