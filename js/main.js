@@ -141,14 +141,24 @@ map.classList.remove('map--faded');
 // 7. Личный проект: больше деталей (часть 2)
 
 var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+// генерируем массив с данными для первого предложения
+var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes, adDescriptions, adPhotoAddresses)[0];
+
+// записываем шаблон в переменную
+var popupCard = userCardTemplate.cloneNode(true);
+
+// в каждый элемент шаблона записываем данные из сгенерированного массива
+var popupTitle = popupCard.querySelector('.popup__title');
+var popupAddress = popupCard.querySelector('.popup__text--address');
+
+var popupPrice = popupCard.querySelector('.popup__text--price');
+
+
+popupTitle.textContent = firstAd.offer.title;
+popupAddress.textContent = firstAd.offer.address;
+popupPrice.textContent = firstAd.offer.price + '₽/ночь'; // ???
 
 // =============  отладка  ============ //
-// console.log(userCardTemplate);
-// userCardTemplate.h4 = 'wdke';
-// console.log(userCardTemplate);
-
-var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes, adDescriptions, adPhotoAddresses);
-console.log(firstAd[0]);
-console.log(firstAd[1]);
-console.log(firstAd[1].offer.title);
-console.log(firstAd[1].author);
+// console.log(popupPriceSpan);
+// console.log(popupCard);
+// console.log(popupPrice);
