@@ -143,4 +143,12 @@ map.classList.remove('map--faded');
 var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
 // =============  отладка  ============ //
-console.log(userCardTemplate);
+// console.log(userCardTemplate);
+// userCardTemplate.h4 = 'wdke';
+// console.log(userCardTemplate);
+
+var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes, adDescriptions, adPhotoAddresses);
+console.log(firstAd[0]);
+console.log(firstAd[1]);
+console.log(firstAd[1].offer.title);
+console.log(firstAd[1].author);
