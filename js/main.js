@@ -139,36 +139,23 @@ var notice = document.querySelector('.notice');
 
 var adForm = notice.querySelector('.ad-form');
 
-var adFormElements = adForm.querySelectorAll('.ad-form fieldset');
-var filterElements = adMap.querySelectorAll('.map__filters select, .map__filters input');
+// var adFormElements = adForm.querySelectorAll('.ad-form fieldset');
+// var filterElements = adMap.querySelectorAll('.map__filters select, .map__filters input');
+var disabledFormElements = document.querySelectorAll('.ad-form fieldset, .map__filters select, .map__filters input');
 
-var disableMapFilterElements = function () {
-  for (var i = 0; i < filterElements.length; i++) {
-    filterElements[i].setAttribute('disabled', '');
+var disableElements = function () {
+  for (var i = 0; i < disabledFormElements.length; i++) {
+    disabledFormElements[i].setAttribute('disabled', '');
   }
 };
 
-var disableAdFormElements = function () {
-  for (var j = 0; j < adFormElements.length; j++) {
-    adFormElements[j].setAttribute('disabled', '');
+var anableElements = function () {
+  for (var i = 0; i < disabledFormElements.length; i++) {
+    disabledFormElements[i].removeAttribute('disabled', '');
   }
 };
 
-var anableAdFormElements = function () {
-  for (var j = 0; j < adFormElements.length; j++) {
-    adFormElements[j].removeAttribute('disabled');
-  }
-};
-
-var anableMapFilterElements = function () {
-  for (var i = 0; i < filterElements.length; i++) {
-    filterElements[i].removeAttribute('disabled');
-  }
-};
-
-disableMapFilterElements(); // по дефолту запущена, переопределяется при активации
-disableAdFormElements(); // по дефолту запущена, переопределяется при активации
-
+disableElements(); // по дефолту запущена, переопределяется при активации
 
 var activate = function () {
   insertElements();
@@ -176,22 +163,11 @@ var activate = function () {
   adForm.classList.remove('ad-form--disabled');
   adMap.classList.remove('map--faded');
 
-  anableMapFilterElements();
-  anableAdFormElements();
+  anableElements();
 
   mainPinY = parseInt((mainPinButton.style.top), 10) + ACTIVE_MAIN_PIN_HEIGHT;
   address.setAttribute('value', mainPinX + ', ' + mainPinY);
 };
-
-// var mainPin = mapPins.querySelector('.map__pin--main');
-
-// var numberOfActivations = 0; // счетчик активаций
-// mainPin.addEventListener('mousedown', function (evt) {
-//   if (evt.button === 0 && numberOfActivations === 0) {
-//     activate();
-//     numberOfActivations++;
-//   }
-// });
 
 var mainPin = mapPins.querySelector('.map__pin--main');
 
@@ -232,21 +208,21 @@ var roomNumber = adForm.querySelector('#room_number');
 var capacity = adForm.querySelector('#capacity');
 
 var message = [
-    'Количество мест не должно превышать количество комнат',
-    '100 комнат не для гостей',
-    'Укажите количество мест',
-    ''
+  'Количество мест не должно превышать количество комнат',
+  '100 комнат не для гостей',
+  'Укажите количество мест',
+  ''
 ];
 
 adForm.addEventListener('change', function () {
-    if ((roomNumber.value === '100') && (capacity.value !== '0')) {
-        roomNumber.setCustomValidity(message[1]);
-    } else if (roomNumber.value < capacity.value) {
-        roomNumber.setCustomValidity(message[0]);
-    } else if (roomNumber.value !== '100' && capacity.value === '0') {
-        roomNumber.setCustomValidity(message[2]);
-    } else {
-        roomNumber.setCustomValidity(message[3]);
-    }
+  if ((roomNumber.value === '100') && (capacity.value !== '0')) {
+    roomNumber.setCustomValidity(message[1]);
+  } else if (roomNumber.value < capacity.value) {
+    roomNumber.setCustomValidity(message[0]);
+  } else if (roomNumber.value !== '100' && capacity.value === '0') {
+    roomNumber.setCustomValidity(message[2]);
+  } else {
+    roomNumber.setCustomValidity(message[3]);
+  }
 });
 
