@@ -32,7 +32,7 @@ var housingAddresses = [
 ];
 
 var housingTypes = [
-  'palace', 'flat', 'house', 'bungalo'
+  'palace', 'flat', 'house', 'bungalo', '', undefined
 ];
 
 var arrivalTimes = [
@@ -77,6 +77,7 @@ var createSimilarAds = function (titles, addresses, types, descriptions, photoAd
   var similarAds = [];
   for (var i = 0; i < quantityOfObjects; i++) {
     var checkinTime = arrivalTimes[getRandomBetween(2, 0)];
+    var checkoutTime = arrivalTimes[getRandomBetween(2, 0)];
     similarAds[i] = {
       author: {
         avatar: 'img/avatars/user0' + (i + 1) + '.png',
@@ -87,10 +88,10 @@ var createSimilarAds = function (titles, addresses, types, descriptions, photoAd
         address: addresses[i],
         price: Math.round(getRandomBetween(1000000, 0) / 1000) * 1000,
         type: types[getRandomBetween(types.length - 1, 0)],
-        rooms: getRandomBetween(10, 1),
-        guests: getRandomBetween(10, 1),
+        rooms: getRandomBetween(3, 1),
+        guests: getRandomBetween(3, 1),
         checkin: checkinTime,
-        checkout: checkinTime,
+        checkout: checkoutTime,
         features: getRandomLengthArr(proposedFeatures),
         description: descriptions[i],
         photos: getRandomLengthArr(photoAddresses)
@@ -126,7 +127,8 @@ var addElement = function (elementsArray) {
 };
 
 var insertElements = function () {
-  mapPins.appendChild(addElement(createSimilarAds(adTitles, housingAddresses, housingTypes, adDescriptions, adPhotoAddresses)));
+  mapPins.appendChild(addElement(createSimilarAds(adTitles, housingAddresses, housingTypes,
+      adDescriptions, adPhotoAddresses)));
 };
 
 insertElements();
@@ -142,9 +144,10 @@ map.classList.remove('map--faded');
 
 var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 // генерируем массив с данными для первого предложения
-var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes, adDescriptions, adPhotoAddresses)[0];
+var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes,
+    adDescriptions, adPhotoAddresses)[0];
 
-// записываем шаблон в переменную
+// записываем клонированный шаблон в переменную
 var popupCard = userCardTemplate.cloneNode(true);
 
 // в каждый элемент шаблона записываем данные из сгенерированного массива
@@ -152,13 +155,55 @@ var popupTitle = popupCard.querySelector('.popup__title');
 var popupAddress = popupCard.querySelector('.popup__text--address');
 
 var popupPrice = popupCard.querySelector('.popup__text--price');
+var popupType = popupCard.querySelector('.popup__type');
+var popupTextCapacity = popupCard.querySelector('.popup__text--capacity');
+var popupTextTime = popupCard.querySelector('.popup__text--time');
+var popupFeatures = popupCard.querySelector('.popup__features');
 
+console.log(firstAd.offer.type);
 
 popupTitle.textContent = firstAd.offer.title;
 popupAddress.textContent = firstAd.offer.address;
 popupPrice.textContent = firstAd.offer.price + '₽/ночь'; // ???
+// popupType.textContent = firstAd.offer.type;
+
+var room;
+var guest;
+if (firstAd.offer.rooms > 1) {
+  room = ' комнаты';
+} else {
+  room = ' комната';
+}
+if (firstAd.offer.guests > 1) {
+  guest = ' гостей';
+} else {
+  guest = ' гостя';
+}
+
+popupTextCapacity.textContent = firstAd.offer.rooms + room + ' для ' +
+  firstAd.offer.guests + guest;
+
+switch (firstAd.offer.type) {
+  case 'palace':
+    popupType.textContent = 'Дворец';
+    break;
+  case 'flat':
+    popupType.textContent = 'Квартира';
+    break;
+  case 'house':
+    popupType.textContent = 'Дом';
+    break;
+  case 'bungalo':
+    popupType.textContent = 'Бунгало';
+    break;
+  default:
+    popupType.classList.add('visually-hidden');
+}
+
+popupTextTime.textContent = 'Заезд после ' + firstAd.offer.checkin +
+  ', выезд до ' + firstAd.offer.checkout;
 
 // =============  отладка  ============ //
-// console.log(popupPriceSpan);
+console.log(firstAd.offer.features);
+console.log(popupFeatures);
 // console.log(popupCard);
-// console.log(popupPrice);
