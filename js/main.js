@@ -4,6 +4,9 @@ var quantityOfObjects = 8;
 // var PIN_HEIGHT = 70; // высота метки
 var PIN_WIDTH = 50; // ширина метки
 var MAP_WIDTH = 1200; // ширина блока .map__overlay
+var MAIN_PIN_WIDTH = 65; // равна высоте в неактивном состоянии
+var MAIN_PIN_HEIGHT = 65;
+var ACTIVE_MAIN_PIN_HEIGHT = 84;
 
 var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPins = document.querySelector('.map__pins');
@@ -131,10 +134,100 @@ var insertElements = function () {
       adDescriptions, adPhotoAddresses)));
 };
 
-insertElements();
+// 9. Личный проект: доверяй, но проверяй (часть 1)
+// Активация страницы
 
 var adMap = document.querySelector('.map');
-adMap.classList.remove('map--faded');
+var notice = document.querySelector('.notice');
+
+var adForm = notice.querySelector('.ad-form');
+
+// var adFormElements = adForm.querySelectorAll('.ad-form fieldset');
+// var filterElements = adMap.querySelectorAll('.map__filters select, .map__filters input');
+var disabledFormElements = document.querySelectorAll('.ad-form fieldset, .map__filters select, .map__filters input');
+
+var disableElements = function () {
+  for (var i = 0; i < disabledFormElements.length; i++) {
+    disabledFormElements[i].setAttribute('disabled', '');
+  }
+};
+
+var anableElements = function () {
+  for (var i = 0; i < disabledFormElements.length; i++) {
+    disabledFormElements[i].removeAttribute('disabled', '');
+  }
+};
+
+disableElements(); // по дефолту запущена, переопределяется при активации
+
+var activate = function () {
+  insertElements();
+
+  adForm.classList.remove('ad-form--disabled');
+  adMap.classList.remove('map--faded');
+
+  anableElements();
+
+  mainPinY = parseInt((mainPinButton.style.top), 10) + ACTIVE_MAIN_PIN_HEIGHT;
+  address.setAttribute('value', mainPinX + ', ' + mainPinY);
+};
+
+var mainPin = mapPins.querySelector('.map__pin--main');
+
+var notActivatedYet = true;
+mainPin.addEventListener('mousedown', function (evt) {
+  if (notActivatedYet === false) {
+    return;
+  }
+  if (evt.button === 0) {
+    activate();
+    notActivatedYet = false;
+  }
+});
+
+mainPin.addEventListener('keydown', function (evt) {
+  if (notActivatedYet === false) {
+    return;
+  }
+  if (evt.key === 'Enter') {
+    activate();
+    notActivatedYet = false;
+  }
+});
+
+// Заполнение поля адреса
+
+var address = notice.querySelector('#address');
+
+var mainPinButton = mapPins.querySelector('.map__pin--main');
+var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(MAIN_PIN_WIDTH / 2);
+var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(MAIN_PIN_HEIGHT / 2);
+
+address.setAttribute('value', mainPinX + ', ' + mainPinY);
+
+// Непростая валидация
+
+var roomNumber = adForm.querySelector('#room_number');
+var capacity = adForm.querySelector('#capacity');
+
+var message = [
+  'Количество мест не должно превышать количество комнат',
+  '100 комнат не для гостей',
+  'Укажите количество мест',
+  ''
+];
+
+adForm.addEventListener('change', function () {
+  if ((roomNumber.value === '100') && (capacity.value !== '0')) {
+    roomNumber.setCustomValidity(message[1]);
+  } else if (roomNumber.value < capacity.value) {
+    roomNumber.setCustomValidity(message[0]);
+  } else if (roomNumber.value !== '100' && capacity.value === '0') {
+    roomNumber.setCustomValidity(message[2]);
+  } else {
+    roomNumber.setCustomValidity(message[3]);
+  }
+});
 
 // 7. Личный проект: больше деталей (часть 2)
 
