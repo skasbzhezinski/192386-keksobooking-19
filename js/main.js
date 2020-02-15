@@ -86,7 +86,7 @@ var createSimilarAds = function (titles, addresses, types, descriptions, photoAd
       offer: {
         title: titles[i],
         address: addresses[i],
-        price: Math.round(getRandomBetween(1000000, 0) / 1000) * 1000,
+        price: Math.round(getRandomBetween(10000, 0) / 100) * 100, // выглядит реальнее
         type: types[getRandomBetween(types.length - 1, 0)],
         rooms: getRandomBetween(3, 1),
         guests: getRandomBetween(3, 1),
@@ -133,19 +133,15 @@ var insertElements = function () {
 
 insertElements();
 
-// =============  отладка  ============ //
-// console.log('Добавляю метки объявлений ');
-// console.log(mapPins);
-
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+var adMap = document.querySelector('.map');
+adMap.classList.remove('map--faded');
 
 // 7. Личный проект: больше деталей (часть 2)
 
 var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 // записываем массив с данными для первого предложения в переменную
 var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes,
-    adDescriptions, adPhotoAddresses)[3];
+    adDescriptions, adPhotoAddresses)[5];
 
 // записываем клонированный шаблон в переменную
 var popupCard = userCardTemplate.cloneNode(true);
@@ -159,7 +155,8 @@ var popupTextCapacity = popupCard.querySelector('.popup__text--capacity');
 var popupTextTime = popupCard.querySelector('.popup__text--time');
 var popupFeatures = popupCard.querySelector('.popup__features');
 var popupDescriptions = popupCard.querySelector('.popup__description');
-var popupPhotos = popupCard.querySelector('.popup__photos')
+var popupPhotos = popupCard.querySelector('.popup__photos');
+var popupAvatar = popupCard.querySelector('.popup__avatar');
 
 // в каждый элемент карточки записываем данные из сгенерированного массива
 popupTitle.textContent = firstAd.offer.title;
@@ -214,9 +211,6 @@ popupType.textContent = getTextForType(firstAd.offer.type);
 popupTextTime.textContent = 'Заезд после ' + firstAd.offer.checkin +
   ', выезд до ' + firstAd.offer.checkout;
 
-// =============  отладка  ============ //
-// console.log(firstAd.offer.features);
-
 // функция добавления текста пунктам списка popupFeatures
 var addFeaturesToTheList = function () {
   var INDEX_OF_LAST_WORD_IN_CLASS_NAME = 31;
@@ -234,7 +228,7 @@ var addFeaturesToTheList = function () {
     }
     if (matchCheck === true) {
       item.textContent = lastWordInClassName;
-    } else if (matchCheck === false) {
+    } else {
       item.classList.add('visually-hidden');
     }
   }
@@ -244,31 +238,23 @@ var addFeaturesToTheList = function () {
 addFeaturesToTheList();
 
 popupDescriptions.textContent = firstAd.offer.description;
+popupAvatar.setAttribute('src', firstAd.author.avatar);
 
-// =============  отладка  ============ //
-console.log(firstAd.offer.photos);
+// функция добавления элементов img в блок popupPhotos
+var addImgToTheList = function () {
+  var img = popupPhotos.querySelector('.popup__photo');
+  popupPhotos.removeChild(img);
+  var insertedImg;
+  for (var num = 0; num < firstAd.offer.photos.length; num++) {
+    insertedImg = img.cloneNode(true);
+    insertedImg.setAttribute('src', firstAd.offer.photos[num]);
+    popupPhotos.appendChild(insertedImg);
+  }
+};
 
-var img = popupPhotos.querySelector('.popup__photo');
-popupPhotos.removeChild(img);
-var insertedImg;
-for (var num = 0; num < firstAd.offer.photos.length; num++) {
-  insertedImg = img.cloneNode(true);
-  insertedImg.setAttribute('src', firstAd.offer.photos[num]);
-  popupPhotos.appendChild(insertedImg);
-}
+// запускаем
+addImgToTheList();
 
-// insertedImg = img.cloneNode(true);
-// insertedImg.setAttribute('src', firstAd.offer.photos[num]);
-// popupPhotos.appendChild(insertedImg);
-
-// insertedImg = img.cloneNode(true);
-// num = 2;
-// insertedImg.setAttribute('src', firstAd.offer.photos[num]);
-// popupPhotos.appendChild(insertedImg);
-
-// insertedImg = img.cloneNode(true);
-// num = 3;
-// insertedImg.setAttribute('src', 'http://o0.github.io/assets/images/tokyo/hotel' + num + '.jpg');
-// popupPhotos.appendChild(insertedImg);
-// =============  отладка  ============ //
-console.log(popupPhotos);
+// вставляем полученный элемент
+var mapfiltersContainer = adMap.querySelector('.map__filters-container');
+adMap.insertBefore(popupCard, mapfiltersContainer);
