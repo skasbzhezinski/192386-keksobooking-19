@@ -32,7 +32,7 @@ var housingAddresses = [
 ];
 
 var housingTypes = [
-  'palace', 'flat', 'house', 'bungalo', '', undefined
+  'palace', 'flat', 'house', 'bungalo'
 ];
 
 var arrivalTimes = [
@@ -143,7 +143,7 @@ map.classList.remove('map--faded');
 // 7. Личный проект: больше деталей (часть 2)
 
 var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-// генерируем массив с данными для первого предложения
+// записываем массив с данными для первого предложения в переменную
 var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes,
     adDescriptions, adPhotoAddresses)[0];
 
@@ -160,6 +160,7 @@ var popupTextCapacity = popupCard.querySelector('.popup__text--capacity');
 var popupTextTime = popupCard.querySelector('.popup__text--time');
 var popupFeatures = popupCard.querySelector('.popup__features');
 
+// =============  отладка  ============ //
 console.log(firstAd.offer.type);
 
 popupTitle.textContent = firstAd.offer.title;
@@ -167,43 +168,106 @@ popupAddress.textContent = firstAd.offer.address;
 popupPrice.textContent = firstAd.offer.price + '₽/ночь'; // ???
 // popupType.textContent = firstAd.offer.type;
 
-var room;
-var guest;
-if (firstAd.offer.rooms > 1) {
-  room = ' комнаты';
-} else {
-  room = ' комната';
-}
-if (firstAd.offer.guests > 1) {
-  guest = ' гостей';
-} else {
-  guest = ' гостя';
-}
-
-popupTextCapacity.textContent = firstAd.offer.rooms + room + ' для ' +
+// функция создания текста для элемента popupTextCapacity
+var getTextForCapacity = function (numberOfRooms, numberOfGuests) {
+  var room;
+  var guest;
+  if (numberOfRooms > 1) {
+    room = ' комнаты';
+  } else {
+    room = ' комната';
+  }
+  if (numberOfGuests > 1) {
+    guest = ' гостей';
+  } else {
+    guest = ' гостя';
+  }
+  return firstAd.offer.rooms + room + ' для ' +
   firstAd.offer.guests + guest;
+};
 
-switch (firstAd.offer.type) {
-  case 'palace':
-    popupType.textContent = 'Дворец';
-    break;
-  case 'flat':
-    popupType.textContent = 'Квартира';
-    break;
-  case 'house':
-    popupType.textContent = 'Дом';
-    break;
-  case 'bungalo':
-    popupType.textContent = 'Бунгало';
-    break;
-  default:
-    popupType.classList.add('visually-hidden');
-}
+popupTextCapacity.textContent = getTextForCapacity(firstAd.offer.rooms, firstAd.offer.guests);
+
+// функция выбора текста для элемента popupType
+var getTextForType = function (typeOfHousing) {
+  var text;
+  switch (typeOfHousing) {
+    case 'palace':
+      text = 'Дворец';
+      break;
+    case 'flat':
+      text = 'Квартира';
+      break;
+    case 'house':
+      text = 'Дом';
+      break;
+    case 'bungalo':
+      text = 'Бунгало';
+      break;
+    default:
+      text = '';
+      popupType.classList.add('visually-hidden');
+  }
+  return text;
+};
+
+popupType.textContent = getTextForType(firstAd.offer.type);
 
 popupTextTime.textContent = 'Заезд после ' + firstAd.offer.checkin +
   ', выезд до ' + firstAd.offer.checkout;
 
+
 // =============  отладка  ============ //
+var firstFeature = popupFeatures.querySelector('.popup__feature:first-child');
+
+// var firstFeatureName = firstFeature.slice(31);
+// console.log(firstFeatureName)
+// firstFeatureName = firstFeature.slice(0, 31);
+// console.log(firstFeatureName)
+// console.log(firstFeature.classList.contains('.popup__feature--wifi'));
+
+console.log(firstFeature);
+// console.log(firstFeature.classList);
+// console.log(firstFeature.classList[1]);
+// console.log(firstFeature.classList[1].slice(16));
+
+// var listLength = popupFeatures.children.length;
+// for (var j = 0; j < listLength; j++) {
+//   for (var i = 0; i < firstAd.offer.features.length; i++) {
+//     if (firstFeature.classList[1].slice(16) === firstAd.offer.features[i]) {
+//       firstFeature.textContent = firstFeature.classList[1].slice(16);
+//     } else {
+//       firstFeature.classList.add('visually-hidden');
+//     }
+//   }
+// }
 console.log(firstAd.offer.features);
+
+// var listLength = popupFeatures.children.length;
+// for (var j = 1; j <= firstAd.offer.features.length; j++) {
+//   for (var i = 0; i < listLength; i++) {
+//     var lastWordInClassName = popupFeatures.querySelector('li:nth-child(' + j + ')').classList.value.slice(31);
+//     var feature = firstAd.offer.features[i];
+//     var condition = lastWordInClassName === feature;
+//     var check = false;
+//     if (condition) {
+//       var item = popupFeatures.querySelector('li:nth-child(' + j + ')');
+//       item.textContent = lastWordInClassName;
+//       var check = true;
+//     }
+//   }
+//   if (condition && !check) {
+//     item.classList.add('visually-hidden');
+//   }
+// }
+
+console.log(firstFeature);
 console.log(popupFeatures);
-// console.log(popupCard);
+console.log(popupCard);
+// console.log(popupFeatures.children);
+// console.log(popupFeatures.children.length);
+// console.log(popupFeatures.children[3]);
+// console.log(popupFeatures.querySelector('li:nth-child(' + (listLength - 1) + ')'));
+// console.log(listLength);
+// console.log('li:nth-child(' + (listLength - 1) + ')');
+// console.log(popupFeatures.length); // undefined
