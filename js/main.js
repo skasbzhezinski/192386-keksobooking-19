@@ -145,7 +145,7 @@ map.classList.remove('map--faded');
 var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 // записываем массив с данными для первого предложения в переменную
 var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes,
-    adDescriptions, adPhotoAddresses)[0];
+    adDescriptions, adPhotoAddresses)[3];
 
 // записываем клонированный шаблон в переменную
 var popupCard = userCardTemplate.cloneNode(true);
@@ -158,6 +158,8 @@ var popupType = popupCard.querySelector('.popup__type');
 var popupTextCapacity = popupCard.querySelector('.popup__text--capacity');
 var popupTextTime = popupCard.querySelector('.popup__text--time');
 var popupFeatures = popupCard.querySelector('.popup__features');
+var popupDescriptions = popupCard.querySelector('.popup__description');
+var popupPhotos = popupCard.querySelector('.popup__photos')
 
 // в каждый элемент карточки записываем данные из сгенерированного массива
 popupTitle.textContent = firstAd.offer.title;
@@ -241,6 +243,32 @@ var addFeaturesToTheList = function () {
 // запускаем функцию
 addFeaturesToTheList();
 
+popupDescriptions.textContent = firstAd.offer.description;
+
 // =============  отладка  ============ //
-// console.log(popupFeatures);
-// console.log(popupCard);
+console.log(firstAd.offer.photos);
+
+var img = popupPhotos.querySelector('.popup__photo');
+popupPhotos.removeChild(img);
+var insertedImg;
+for (var num = 0; num < firstAd.offer.photos.length; num++) {
+  insertedImg = img.cloneNode(true);
+  insertedImg.setAttribute('src', firstAd.offer.photos[num]);
+  popupPhotos.appendChild(insertedImg);
+}
+
+// insertedImg = img.cloneNode(true);
+// insertedImg.setAttribute('src', firstAd.offer.photos[num]);
+// popupPhotos.appendChild(insertedImg);
+
+// insertedImg = img.cloneNode(true);
+// num = 2;
+// insertedImg.setAttribute('src', firstAd.offer.photos[num]);
+// popupPhotos.appendChild(insertedImg);
+
+// insertedImg = img.cloneNode(true);
+// num = 3;
+// insertedImg.setAttribute('src', 'http://o0.github.io/assets/images/tokyo/hotel' + num + '.jpg');
+// popupPhotos.appendChild(insertedImg);
+// =============  отладка  ============ //
+console.log(popupPhotos);
