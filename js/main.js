@@ -150,23 +150,19 @@ var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes,
 // записываем клонированный шаблон в переменную
 var popupCard = userCardTemplate.cloneNode(true);
 
-// в каждый элемент шаблона записываем данные из сгенерированного массива
+// создаем переменные для элементов карточки popupCard
 var popupTitle = popupCard.querySelector('.popup__title');
 var popupAddress = popupCard.querySelector('.popup__text--address');
-
 var popupPrice = popupCard.querySelector('.popup__text--price');
 var popupType = popupCard.querySelector('.popup__type');
 var popupTextCapacity = popupCard.querySelector('.popup__text--capacity');
 var popupTextTime = popupCard.querySelector('.popup__text--time');
 var popupFeatures = popupCard.querySelector('.popup__features');
 
-// =============  отладка  ============ //
-console.log(firstAd.offer.type);
-
+// в каждый элемент карточки записываем данные из сгенерированного массива
 popupTitle.textContent = firstAd.offer.title;
 popupAddress.textContent = firstAd.offer.address;
 popupPrice.textContent = firstAd.offer.price + '₽/ночь'; // ???
-// popupType.textContent = firstAd.offer.type;
 
 // функция создания текста для элемента popupTextCapacity
 var getTextForCapacity = function (numberOfRooms, numberOfGuests) {
@@ -216,58 +212,35 @@ popupType.textContent = getTextForType(firstAd.offer.type);
 popupTextTime.textContent = 'Заезд после ' + firstAd.offer.checkin +
   ', выезд до ' + firstAd.offer.checkout;
 
+// =============  отладка  ============ //
+// console.log(firstAd.offer.features);
+
+// функция добавления текста пунктам списка popupFeatures
+var addFeaturesToTheList = function () {
+  var INDEX_OF_LAST_WORD_IN_CLASS_NAME = 31;
+  var listLength = popupFeatures.children.length;
+  for (var j = 1; j <= listLength; j++) {
+    var lastWordInClassName = popupFeatures.querySelector('li:nth-child(' + j + ')')
+      .classList.value.slice(INDEX_OF_LAST_WORD_IN_CLASS_NAME);
+    var item = popupFeatures.querySelector('li:nth-child(' + j + ')');
+    var matchCheck = false;
+    for (var i = 0; i < firstAd.offer.features.length; i++) {
+      var feature = firstAd.offer.features[i];
+      if (lastWordInClassName === feature) {
+        matchCheck = true;
+      }
+    }
+    if (matchCheck === true) {
+      item.textContent = lastWordInClassName;
+    } else if (matchCheck === false) {
+      item.classList.add('visually-hidden');
+    }
+  }
+};
+
+// запускаем функцию
+addFeaturesToTheList();
 
 // =============  отладка  ============ //
-var firstFeature = popupFeatures.querySelector('.popup__feature:first-child');
-
-// var firstFeatureName = firstFeature.slice(31);
-// console.log(firstFeatureName)
-// firstFeatureName = firstFeature.slice(0, 31);
-// console.log(firstFeatureName)
-// console.log(firstFeature.classList.contains('.popup__feature--wifi'));
-
-console.log(firstFeature);
-// console.log(firstFeature.classList);
-// console.log(firstFeature.classList[1]);
-// console.log(firstFeature.classList[1].slice(16));
-
-// var listLength = popupFeatures.children.length;
-// for (var j = 0; j < listLength; j++) {
-//   for (var i = 0; i < firstAd.offer.features.length; i++) {
-//     if (firstFeature.classList[1].slice(16) === firstAd.offer.features[i]) {
-//       firstFeature.textContent = firstFeature.classList[1].slice(16);
-//     } else {
-//       firstFeature.classList.add('visually-hidden');
-//     }
-//   }
-// }
-console.log(firstAd.offer.features);
-
-// var listLength = popupFeatures.children.length;
-// for (var j = 1; j <= firstAd.offer.features.length; j++) {
-//   for (var i = 0; i < listLength; i++) {
-//     var lastWordInClassName = popupFeatures.querySelector('li:nth-child(' + j + ')').classList.value.slice(31);
-//     var feature = firstAd.offer.features[i];
-//     var condition = lastWordInClassName === feature;
-//     var check = false;
-//     if (condition) {
-//       var item = popupFeatures.querySelector('li:nth-child(' + j + ')');
-//       item.textContent = lastWordInClassName;
-//       var check = true;
-//     }
-//   }
-//   if (condition && !check) {
-//     item.classList.add('visually-hidden');
-//   }
-// }
-
-console.log(firstFeature);
-console.log(popupFeatures);
-console.log(popupCard);
-// console.log(popupFeatures.children);
-// console.log(popupFeatures.children.length);
-// console.log(popupFeatures.children[3]);
-// console.log(popupFeatures.querySelector('li:nth-child(' + (listLength - 1) + ')'));
-// console.log(listLength);
-// console.log('li:nth-child(' + (listLength - 1) + ')');
-// console.log(popupFeatures.length); // undefined
+// console.log(popupFeatures);
+// console.log(popupCard);
