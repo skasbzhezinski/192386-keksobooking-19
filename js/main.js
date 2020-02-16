@@ -160,6 +160,7 @@ var anableElements = function () {
 
 disableElements(); // по дефолту запущена, переопределяется при активации
 
+// функция активации страницы
 var activate = function () {
   insertElements();
 
@@ -182,6 +183,14 @@ mainPin.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
     activate();
     notActivatedYet = false;
+
+    // вызов карточки по клику на метке
+    var mapPin = mapPins.querySelectorAll('.map__pin');
+    var onMapPinClick = function () {
+      insertCard();
+    };
+
+    mapPin[6].addEventListener('click', onMapPinClick);
   }
 });
 
@@ -240,7 +249,7 @@ var renderCard = function () {
 
   // записываем массив с данными для первого предложения в переменную
   var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes,
-      adDescriptions, adPhotoAddresses)[0];
+      adDescriptions, adPhotoAddresses)[5];
 
   // записываем клонированный шаблон в переменную
   var popupCard = userCardTemplate.cloneNode(true);
@@ -359,8 +368,9 @@ var insertCard = function () {
   adMap.insertBefore(renderCard(), mapfiltersContainer);
 };
 
+// ============== отладка ============== //
 // вставляем карточку
 // insertCard();
 
-// ==============  ============== //
 // console.log(firstAd);
+console.log(mapPins);
