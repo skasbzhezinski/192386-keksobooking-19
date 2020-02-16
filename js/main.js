@@ -302,29 +302,14 @@ var renderCard = function () {
   };
   popupTextCapacity.textContent = getTextForCapacity(firstAd.offer.rooms, firstAd.offer.guests);
 
-  // функция выбора текста для элемента popupType
-  var getTextForType = function (typeOfHousing) {
-    var text;
-    switch (typeOfHousing) {
-      case 'palace':
-        text = 'Дворец';
-        break;
-      case 'flat':
-        text = 'Квартира';
-        break;
-      case 'house':
-        text = 'Дом';
-        break;
-      case 'bungalo':
-        text = 'Бунгало';
-        break;
-      default:
-        text = '';
-        popupType.classList.add('visually-hidden');
-    }
-    return text;
+  var houseType = {
+    palace: 'Дворец',
+    flat: 'Квартира',
+    bungalo: 'Бунгало',
+    house: 'Дом'
   };
-  popupType.textContent = getTextForType(firstAd.offer.type);
+
+  popupType.textContent = houseType[firstAd.offer.type];
 
   popupTextTime.textContent = 'Заезд после ' + firstAd.offer.checkin +
   ', выезд до ' + firstAd.offer.checkout;
@@ -385,4 +370,4 @@ var insertCard = function () {
 // insertCard();
 
 // console.log(firstAd);
-console.log(mapPins);
+// console.log(mapPins);
