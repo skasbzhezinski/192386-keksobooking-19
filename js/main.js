@@ -235,127 +235,132 @@ adForm.addEventListener('change', onAdFormChange);
 
 // 7. Личный проект: больше деталей (часть 2)
 
-var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-// записываем массив с данными для первого предложения в переменную
-var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes,
-    adDescriptions, adPhotoAddresses)[0];
+var renderCard = function () {
+  var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-// записываем клонированный шаблон в переменную
-var popupCard = userCardTemplate.cloneNode(true);
+  // записываем массив с данными для первого предложения в переменную
+  var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes,
+      adDescriptions, adPhotoAddresses)[0];
 
-// создаем переменные для элементов карточки popupCard
-var popupTitle = popupCard.querySelector('.popup__title');
-var popupAddress = popupCard.querySelector('.popup__text--address');
-var popupPrice = popupCard.querySelector('.popup__text--price');
-var popupType = popupCard.querySelector('.popup__type');
-var popupTextCapacity = popupCard.querySelector('.popup__text--capacity');
-var popupTextTime = popupCard.querySelector('.popup__text--time');
-var popupFeatures = popupCard.querySelector('.popup__features');
-var popupDescriptions = popupCard.querySelector('.popup__description');
-var popupPhotos = popupCard.querySelector('.popup__photos');
-var popupAvatar = popupCard.querySelector('.popup__avatar');
+  // записываем клонированный шаблон в переменную
+  var popupCard = userCardTemplate.cloneNode(true);
 
-// в каждый элемент карточки записываем данные из сгенерированного массива
-popupTitle.textContent = firstAd.offer.title;
-popupAddress.textContent = firstAd.offer.address;
-popupPrice.textContent = firstAd.offer.price + '₽/ночь'; // ???
+  // создаем переменные для элементов карточки popupCard
+  var popupTitle = popupCard.querySelector('.popup__title');
+  var popupAddress = popupCard.querySelector('.popup__text--address');
+  var popupPrice = popupCard.querySelector('.popup__text--price');
+  var popupType = popupCard.querySelector('.popup__type');
+  var popupTextCapacity = popupCard.querySelector('.popup__text--capacity');
+  var popupTextTime = popupCard.querySelector('.popup__text--time');
+  var popupFeatures = popupCard.querySelector('.popup__features');
+  var popupDescriptions = popupCard.querySelector('.popup__description');
+  var popupPhotos = popupCard.querySelector('.popup__photos');
+  var popupAvatar = popupCard.querySelector('.popup__avatar');
 
-// функция создания текста для элемента popupTextCapacity
-var getTextForCapacity = function (numberOfRooms, numberOfGuests) {
-  var room;
-  var guest;
-  if (numberOfRooms > 1) {
-    room = ' комнаты';
-  } else {
-    room = ' комната';
-  }
-  if (numberOfGuests > 1) {
-    guest = ' гостей';
-  } else {
-    guest = ' гостя';
-  }
-  return firstAd.offer.rooms + room + ' для ' +
-  firstAd.offer.guests + guest;
-};
+  // в каждый элемент карточки записываем данные из сгенерированного массива
+  popupTitle.textContent = firstAd.offer.title;
+  popupAddress.textContent = firstAd.offer.address;
+  popupPrice.textContent = firstAd.offer.price + '₽/ночь'; // ???
 
-popupTextCapacity.textContent = getTextForCapacity(firstAd.offer.rooms, firstAd.offer.guests);
+  // функция создания текста для элемента popupTextCapacity
+  var getTextForCapacity = function (numberOfRooms, numberOfGuests) {
+    var room;
+    var guest;
+    if (numberOfRooms > 1) {
+      room = ' комнаты';
+    } else {
+      room = ' комната';
+    }
+    if (numberOfGuests > 1) {
+      guest = ' гостей';
+    } else {
+      guest = ' гостя';
+    }
+    return firstAd.offer.rooms + room + ' для ' +
+      firstAd.offer.guests + guest;
+  };
+  popupTextCapacity.textContent = getTextForCapacity(firstAd.offer.rooms, firstAd.offer.guests);
 
-// функция выбора текста для элемента popupType
-var getTextForType = function (typeOfHousing) {
-  var text;
-  switch (typeOfHousing) {
-    case 'palace':
-      text = 'Дворец';
-      break;
-    case 'flat':
-      text = 'Квартира';
-      break;
-    case 'house':
-      text = 'Дом';
-      break;
-    case 'bungalo':
-      text = 'Бунгало';
-      break;
-    default:
-      text = '';
-      popupType.classList.add('visually-hidden');
-  }
-  return text;
-};
+  // функция выбора текста для элемента popupType
+  var getTextForType = function (typeOfHousing) {
+    var text;
+    switch (typeOfHousing) {
+      case 'palace':
+        text = 'Дворец';
+        break;
+      case 'flat':
+        text = 'Квартира';
+        break;
+      case 'house':
+        text = 'Дом';
+        break;
+      case 'bungalo':
+        text = 'Бунгало';
+        break;
+      default:
+        text = '';
+        popupType.classList.add('visually-hidden');
+    }
+    return text;
+  };
+  popupType.textContent = getTextForType(firstAd.offer.type);
 
-popupType.textContent = getTextForType(firstAd.offer.type);
-
-popupTextTime.textContent = 'Заезд после ' + firstAd.offer.checkin +
+  popupTextTime.textContent = 'Заезд после ' + firstAd.offer.checkin +
   ', выезд до ' + firstAd.offer.checkout;
 
-// функция добавления текста пунктам списка popupFeatures
-var addFeaturesToTheList = function () {
-  var INDEX_OF_LAST_WORD_IN_CLASS_NAME = 31;
-  var listLength = popupFeatures.children.length;
-  for (var j = 1; j <= listLength; j++) {
-    var lastWordInClassName = popupFeatures.querySelector('li:nth-child(' + j + ')')
-      .classList.value.slice(INDEX_OF_LAST_WORD_IN_CLASS_NAME);
-    var item = popupFeatures.querySelector('li:nth-child(' + j + ')');
-    var matchCheck = false;
-    for (var i = 0; i < firstAd.offer.features.length; i++) {
-      var feature = firstAd.offer.features[i];
-      if (lastWordInClassName === feature) {
-        matchCheck = true;
+  // функция добавления текста пунктам списка popupFeatures
+  var addFeaturesToTheList = function () {
+    var INDEX_OF_LAST_WORD_IN_CLASS_NAME = 31;
+    var listLength = popupFeatures.children.length;
+    for (var j = 1; j <= listLength; j++) {
+      var lastWordInClassName = popupFeatures.querySelector('li:nth-child(' + j + ')')
+        .classList.value.slice(INDEX_OF_LAST_WORD_IN_CLASS_NAME);
+      var item = popupFeatures.querySelector('li:nth-child(' + j + ')');
+      var matchCheck = false;
+      for (var i = 0; i < firstAd.offer.features.length; i++) {
+        var feature = firstAd.offer.features[i];
+        if (lastWordInClassName === feature) {
+          matchCheck = true;
+        }
+      }
+      if (matchCheck === true) {
+        item.textContent = lastWordInClassName;
+      } else {
+        item.classList.add('visually-hidden');
       }
     }
-    if (matchCheck === true) {
-      item.textContent = lastWordInClassName;
-    } else {
-      item.classList.add('visually-hidden');
+  };
+  // запускаем функцию
+  addFeaturesToTheList();
+
+  popupDescriptions.textContent = firstAd.offer.description;
+  popupAvatar.setAttribute('src', firstAd.author.avatar);
+
+  // функция добавления элементов img в блок popupPhotos
+  var addImgToTheList = function () {
+    var img = popupPhotos.querySelector('.popup__photo');
+    popupPhotos.removeChild(img);
+    var insertedImg;
+    for (var num = 0; num < firstAd.offer.photos.length; num++) {
+      insertedImg = img.cloneNode(true);
+      insertedImg.setAttribute('src', firstAd.offer.photos[num]);
+      popupPhotos.appendChild(insertedImg);
     }
-  }
+  };
+  // запускаем
+  addImgToTheList();
+
+  return popupCard;
 };
 
-// запускаем функцию
-addFeaturesToTheList();
-
-popupDescriptions.textContent = firstAd.offer.description;
-popupAvatar.setAttribute('src', firstAd.author.avatar);
-
-// функция добавления элементов img в блок popupPhotos
-var addImgToTheList = function () {
-  var img = popupPhotos.querySelector('.popup__photo');
-  popupPhotos.removeChild(img);
-  var insertedImg;
-  for (var num = 0; num < firstAd.offer.photos.length; num++) {
-    insertedImg = img.cloneNode(true);
-    insertedImg.setAttribute('src', firstAd.offer.photos[num]);
-    popupPhotos.appendChild(insertedImg);
-  }
+// функция вставки карточки в DOM
+var insertCard = function () {
+  var mapfiltersContainer = adMap.querySelector('.map__filters-container');
+  adMap.insertBefore(renderCard(), mapfiltersContainer);
 };
 
-// запускаем
-addImgToTheList();
-
-// вставляем полученный элемент
-var mapfiltersContainer = adMap.querySelector('.map__filters-container');
-adMap.insertBefore(popupCard, mapfiltersContainer);
-
+// вставляем карточку
+// insertCard();
 
 // ==============  ============== //
-console.log(firstAd);
+// console.log(firstAd);
