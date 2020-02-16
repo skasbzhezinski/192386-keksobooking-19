@@ -273,18 +273,30 @@ var renderCard = function () {
 
   // функция создания текста для элемента popupTextCapacity
   var getTextForCapacity = function (numberOfRooms, numberOfGuests) {
-    var room;
-    var guest;
-    if (numberOfRooms > 1) {
-      room = ' комнаты';
-    } else {
-      room = ' комната';
-    }
-    if (numberOfGuests > 1) {
-      guest = ' гостей';
-    } else {
-      guest = ' гостя';
-    }
+    var id;
+    var pluralNominative = function (n, forms) {
+      if (n % 10 === 1 && n % 100 !== 11) {
+        id = 0;
+      } else if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) {
+        id = 1;
+      } else {
+        id = 2;
+      }
+      return forms[id] || '';
+    };
+
+    var pluralGenitive = function (n, forms) {
+      if (n === 1) {
+        id = 0;
+      } else {
+        id = 1;
+      }
+      return forms[id];
+    };
+
+    var room = pluralNominative(numberOfRooms, ['комната', 'комнаты', 'комнат']);
+    var guest = pluralGenitive(numberOfGuests, ['гостя', 'гостей']);
+
     return firstAd.offer.rooms + room + ' для ' +
       firstAd.offer.guests + guest;
   };
