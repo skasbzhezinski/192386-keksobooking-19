@@ -207,17 +207,18 @@ address.setAttribute('value', mainPinX + ', ' + mainPinY);
 
 // Непростая валидация
 
-var roomNumber = adForm.querySelector('#room_number');
-var capacity = adForm.querySelector('#capacity');
+// обработчик события 'change' на форме
+var onAdFormChange = function () {
+  var roomNumber = adForm.querySelector('#room_number');
+  var capacity = adForm.querySelector('#capacity');
 
-var message = [
-  'Количество мест не должно превышать количество комнат',
-  '100 комнат не для гостей',
-  'Укажите количество мест',
-  ''
-];
+  var message = [
+    'Количество мест не должно превышать количество комнат',
+    '100 комнат не для гостей',
+    'Укажите количество мест',
+    ''
+  ];
 
-adForm.addEventListener('change', function () {
   if ((roomNumber.value === '100') && (capacity.value !== '0')) {
     roomNumber.setCustomValidity(message[1]);
   } else if (roomNumber.value < capacity.value) {
@@ -227,14 +228,17 @@ adForm.addEventListener('change', function () {
   } else {
     roomNumber.setCustomValidity(message[3]);
   }
-});
+};
+
+// запуск валидации по событию 'change' на форме
+adForm.addEventListener('change', onAdFormChange);
 
 // 7. Личный проект: больше деталей (часть 2)
 
 var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 // записываем массив с данными для первого предложения в переменную
 var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes,
-    adDescriptions, adPhotoAddresses)[5];
+    adDescriptions, adPhotoAddresses)[0];
 
 // записываем клонированный шаблон в переменную
 var popupCard = userCardTemplate.cloneNode(true);
@@ -351,3 +355,7 @@ addImgToTheList();
 // вставляем полученный элемент
 var mapfiltersContainer = adMap.querySelector('.map__filters-container');
 adMap.insertBefore(popupCard, mapfiltersContainer);
+
+
+// ==============  ============== //
+console.log(firstAd);
