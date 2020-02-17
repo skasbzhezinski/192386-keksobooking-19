@@ -286,7 +286,7 @@ var renderCard = function () {
     };
 
     var pluralGenitive = function (n, forms) {
-      if (n === 1) {
+      if (n === 1 || n % 10 === 1 && n !== 11) {
         id = 0;
       } else {
         id = 1;
