@@ -191,14 +191,6 @@ mainPin.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
     activate();
     notActivatedYet = false;
-
-    // вызов карточки по клику на метке
-    // var mapPin = mapPins.querySelectorAll('.map__pin');
-    // var onMapPinClick = function () {
-    //   insertCard();
-    // };
-
-    // mapPin[1].addEventListener('click', onMapPinClick);
   }
 });
 
@@ -271,36 +263,24 @@ var renderCard = function () {
   popupAddress.textContent = firstAd.offer.address;
   popupPrice.textContent = firstAd.offer.price + '₽/ночь'; // ???
 
-  // функция создания текста для элемента popupTextCapacity
-  var getTextForCapacity = function (numberOfRooms, numberOfGuests) {
+  // функция выбора окончаний
+  var plural = function (n, forms) {
     var id;
-    var pluralNominative = function (n, forms) {
-      if (n % 10 === 1 && n % 100 !== 11) {
-        id = 0;
-      } else if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) {
-        id = 1;
-      } else {
-        id = 2;
-      }
-      return forms[id] || '';
-    };
-
-    var pluralGenitive = function (n, forms) {
-      if (n === 1 || n % 10 === 1 && n !== 11) {
-        id = 0;
-      } else {
-        id = 1;
-      }
-      return forms[id];
-    };
-
-    var room = pluralNominative(numberOfRooms, ['комната', 'комнаты', 'комнат']);
-    var guest = pluralGenitive(numberOfGuests, ['гостя', 'гостей']);
-
-    return firstAd.offer.rooms + room + ' для ' +
-      firstAd.offer.guests + guest;
+    if (n % 10 === 1 && n % 100 !== 11) {
+      id = 0;
+    } else if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) {
+      id = 1;
+    } else {
+      id = 2;
+    }
+    return forms[id] || '';
   };
-  popupTextCapacity.textContent = getTextForCapacity(firstAd.offer.rooms, firstAd.offer.guests);
+
+  var room = plural(firstAd.offer.rooms, [' комната', ' комнаты', ' комнат']);
+  var guest = plural(firstAd.offer.guests, [' гостя', ' гостей', ' гостей']);
+
+  popupTextCapacity.textContent = firstAd.offer.rooms + room + ' для ' +
+  firstAd.offer.guests + guest;
 
   var houseType = {
     palace: 'Дворец',
