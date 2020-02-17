@@ -134,6 +134,14 @@ var addElement = function (elementsArray) {
 
 var insertElements = function () {
   mapPins.appendChild(addElement(mock));
+
+  // вызов карточки по клику на метке
+  var mapPin = mapPins.querySelectorAll('.map__pin');
+  var onMapPinClick = function () {
+    insertCard();
+  };
+
+  mapPin[1].addEventListener('click', onMapPinClick);
 };
 
 // 9. Личный проект: доверяй, но проверяй (часть 1)
@@ -144,8 +152,6 @@ var notice = document.querySelector('.notice');
 
 var adForm = notice.querySelector('.ad-form');
 
-// var adFormElements = adForm.querySelectorAll('.ad-form fieldset');
-// var filterElements = adMap.querySelectorAll('.map__filters select, .map__filters input');
 var disabledFormElements = document.querySelectorAll('.ad-form fieldset, .map__filters select, .map__filters input');
 
 var disableElements = function () {
@@ -187,12 +193,12 @@ mainPin.addEventListener('mousedown', function (evt) {
     notActivatedYet = false;
 
     // вызов карточки по клику на метке
-    var mapPin = mapPins.querySelectorAll('.map__pin');
-    var onMapPinClick = function () {
-      insertCard();
-    };
+    // var mapPin = mapPins.querySelectorAll('.map__pin');
+    // var onMapPinClick = function () {
+    //   insertCard();
+    // };
 
-    mapPin[1].addEventListener('click', onMapPinClick);
+    // mapPin[1].addEventListener('click', onMapPinClick);
   }
 });
 
@@ -223,21 +229,14 @@ var onAdFormChange = function () {
   var roomNumber = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
 
-  var message = [
-    'Количество мест не должно превышать количество комнат',
-    '100 комнат не для гостей',
-    'Укажите количество мест',
-    ''
-  ];
-
+  // количество комнат -- количество гостей
+  roomNumber.setCustomValidity('');
   if ((roomNumber.value === '100') && (capacity.value !== '0')) {
-    roomNumber.setCustomValidity(message[1]);
+    roomNumber.setCustomValidity('100 комнат не для гостей');
   } else if (roomNumber.value < capacity.value) {
-    roomNumber.setCustomValidity(message[0]);
+    roomNumber.setCustomValidity('Количество мест не должно превышать количество комнат');
   } else if (roomNumber.value !== '100' && capacity.value === '0') {
-    roomNumber.setCustomValidity(message[2]);
-  } else {
-    roomNumber.setCustomValidity(message[3]);
+    roomNumber.setCustomValidity('Укажите количество мест');
   }
 };
 
