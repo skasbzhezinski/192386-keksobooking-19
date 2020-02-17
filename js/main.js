@@ -7,6 +7,12 @@ var MAP_WIDTH = 1200; // ширина блока .map__overlay
 var MAIN_PIN_WIDTH = 65; // равна высоте в неактивном состоянии
 var MAIN_PIN_HEIGHT = 65;
 var ACTIVE_MAIN_PIN_HEIGHT = 84;
+var HOUSE_TYPE = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  bungalo: 'Бунгало',
+  house: 'Дом'
+};
 
 var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPins = document.querySelector('.map__pins');
@@ -282,14 +288,7 @@ var renderCard = function () {
   popupTextCapacity.textContent = firstAd.offer.rooms + room + ' для ' +
   firstAd.offer.guests + guest;
 
-  var houseType = {
-    palace: 'Дворец',
-    flat: 'Квартира',
-    bungalo: 'Бунгало',
-    house: 'Дом'
-  };
-
-  popupType.textContent = houseType[firstAd.offer.type];
+  popupType.textContent = HOUSE_TYPE[firstAd.offer.type];
 
   popupTextTime.textContent = 'Заезд после ' + firstAd.offer.checkin +
   ', выезд до ' + firstAd.offer.checkout;
