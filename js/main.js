@@ -109,6 +109,9 @@ var createSimilarAds = function (titles, addresses, types, descriptions, photoAd
   return similarAds;
 };
 
+var mock = createSimilarAds(adTitles, housingAddresses, housingTypes,
+  adDescriptions, adPhotoAddresses);
+
 var renderAds = function (adsArray) {
   var adElement = userPinTemplate.cloneNode(true);
   var adElementImg = adElement.querySelector('img');
@@ -130,8 +133,7 @@ var addElement = function (elementsArray) {
 };
 
 var insertElements = function () {
-  mapPins.appendChild(addElement(createSimilarAds(adTitles, housingAddresses, housingTypes,
-      adDescriptions, adPhotoAddresses)));
+  mapPins.appendChild(addElement(mock));
 };
 
 // 9. Личный проект: доверяй, но проверяй (часть 1)
@@ -190,7 +192,7 @@ mainPin.addEventListener('mousedown', function (evt) {
       insertCard();
     };
 
-    mapPin[6].addEventListener('click', onMapPinClick);
+    mapPin[1].addEventListener('click', onMapPinClick);
   }
 });
 
@@ -248,8 +250,7 @@ var renderCard = function () {
   var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   // записываем массив с данными для первого предложения в переменную
-  var firstAd = createSimilarAds(adTitles, housingAddresses, housingTypes,
-      adDescriptions, adPhotoAddresses)[5];
+  var firstAd = mock[0];
 
   // записываем клонированный шаблон в переменную
   var popupCard = userCardTemplate.cloneNode(true);
