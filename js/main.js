@@ -13,6 +13,7 @@ var HOUSE_TYPE = {
   bungalo: 'Бунгало',
   house: 'Дом'
 };
+var TYPES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
 var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPins = document.querySelector('.map__pins');
@@ -294,14 +295,13 @@ var renderCard = function () {
   ', выезд до ' + firstAd.offer.checkout;
 
   // вывод доступных удобств
-  var types = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
   while (popupFeatures.firstChild) {
     popupFeatures.removeChild(popupFeatures.firstChild);
   }
   for (var i = 0; i < firstAd.offer.features.length; i++) {
     var item = document.createElement('li');
-    item.setAttribute('class', 'popup__feature popup__feature--' + types[i]);
+    item.setAttribute('class', 'popup__feature popup__feature--' + TYPES[i]);
     popupFeatures.appendChild(item);
   }
 
