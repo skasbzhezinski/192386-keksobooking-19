@@ -116,7 +116,7 @@ var createSimilarAds = function (titles, addresses, types, descriptions, photoAd
 };
 
 var mock = createSimilarAds(adTitles, housingAddresses, housingTypes,
-  adDescriptions, adPhotoAddresses);
+    adDescriptions, adPhotoAddresses);
 
 var renderAds = function (adsArray) {
   var adElement = userPinTemplate.cloneNode(true);
@@ -141,13 +141,13 @@ var addElement = function (elementsArray) {
 var insertElements = function () {
   mapPins.appendChild(addElement(mock));
 
-  // вызов карточки по клику на метке
-  var mapPin = mapPins.querySelectorAll('.map__pin');
-  var onMapPinClick = function () {
-    insertCard();
-  };
+  // // вызов карточки по клику на метке
+  // var mapPin = mapPins.querySelectorAll('.map__pin');
+  // var onMapPinClick = function () {
+  //   insertCard();
+  // };
 
-  mapPin[1].addEventListener('click', onMapPinClick);
+  // mapPin[1].addEventListener('click', onMapPinClick);
 };
 
 // 9. Личный проект: доверяй, но проверяй (часть 1)
@@ -293,47 +293,30 @@ var renderCard = function () {
   popupTextTime.textContent = 'Заезд после ' + firstAd.offer.checkin +
   ', выезд до ' + firstAd.offer.checkout;
 
-  // функция добавления текста пунктам списка popupFeatures
-  // var addFeaturesToTheList = function () {
-  //   var INDEX_OF_LAST_WORD_IN_CLASS_NAME = 31;
-  //   var listLength = popupFeatures.children.length;
-  //   for (var j = 1; j <= listLength; j++) {
-  //     var lastWordInClassName = popupFeatures.querySelector('li:nth-child(' + j + ')')
-  //       .classList.value.slice(INDEX_OF_LAST_WORD_IN_CLASS_NAME);
-  //     var item = popupFeatures.querySelector('li:nth-child(' + j + ')');
-  //     var matchCheck = false;
-  //     for (var i = 0; i < firstAd.offer.features.length; i++) {
-  //       var feature = firstAd.offer.features[i];
-  //       if (lastWordInClassName === feature) {
-  //         matchCheck = true;
-  //       }
-  //     }
-  //     if (matchCheck === true) {
-  //       item.textContent = lastWordInClassName;
-  //     } else {
-  //       item.classList.add('visually-hidden');
-  //     }
-  //   }
-  // };
-  // запускаем функцию
-  // addFeaturesToTheList();
+  // вывод доступных удобств
+  var types = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+
+  while (popupFeatures.firstChild) {
+    popupFeatures.removeChild(popupFeatures.firstChild);
+  }
+  for (var i = 0; i < firstAd.offer.features.length; i++) {
+    var item = document.createElement('li');
+    item.setAttribute('class', 'popup__feature popup__feature--' + types[i]);
+    popupFeatures.appendChild(item);
+  }
 
   popupDescriptions.textContent = firstAd.offer.description;
   popupAvatar.setAttribute('src', firstAd.author.avatar);
 
-  // функция добавления элементов img в блок popupPhotos
-  var addImgToTheList = function () {
-    var img = popupPhotos.querySelector('.popup__photo');
-    popupPhotos.removeChild(img);
-    var insertedImg;
-    for (var num = 0; num < firstAd.offer.photos.length; num++) {
-      insertedImg = img.cloneNode(true);
-      insertedImg.setAttribute('src', firstAd.offer.photos[num]);
-      popupPhotos.appendChild(insertedImg);
-    }
-  };
-  // запускаем
-  addImgToTheList();
+  // добавление фотографий в блок popupPhotos
+  var img = popupPhotos.querySelector('.popup__photo');
+  popupPhotos.removeChild(img);
+  var insertedImg;
+  for (var num = 0; num < firstAd.offer.photos.length; num++) {
+    insertedImg = img.cloneNode(true);
+    insertedImg.setAttribute('src', firstAd.offer.photos[num]);
+    popupPhotos.appendChild(insertedImg);
+  }
 
   return popupCard;
 };
@@ -346,7 +329,6 @@ var insertCard = function () {
 
 // ============== отладка ============== //
 // вставляем карточку
-// insertCard();
+insertCard();
 
-// console.log(firstAd);
 // console.log(mapPins);
