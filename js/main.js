@@ -294,29 +294,29 @@ var renderCard = function () {
   ', выезд до ' + firstAd.offer.checkout;
 
   // функция добавления текста пунктам списка popupFeatures
-  var addFeaturesToTheList = function () {
-    var INDEX_OF_LAST_WORD_IN_CLASS_NAME = 31;
-    var listLength = popupFeatures.children.length;
-    for (var j = 1; j <= listLength; j++) {
-      var lastWordInClassName = popupFeatures.querySelector('li:nth-child(' + j + ')')
-        .classList.value.slice(INDEX_OF_LAST_WORD_IN_CLASS_NAME);
-      var item = popupFeatures.querySelector('li:nth-child(' + j + ')');
-      var matchCheck = false;
-      for (var i = 0; i < firstAd.offer.features.length; i++) {
-        var feature = firstAd.offer.features[i];
-        if (lastWordInClassName === feature) {
-          matchCheck = true;
-        }
-      }
-      if (matchCheck === true) {
-        item.textContent = lastWordInClassName;
-      } else {
-        item.classList.add('visually-hidden');
-      }
-    }
-  };
+  // var addFeaturesToTheList = function () {
+  //   var INDEX_OF_LAST_WORD_IN_CLASS_NAME = 31;
+  //   var listLength = popupFeatures.children.length;
+  //   for (var j = 1; j <= listLength; j++) {
+  //     var lastWordInClassName = popupFeatures.querySelector('li:nth-child(' + j + ')')
+  //       .classList.value.slice(INDEX_OF_LAST_WORD_IN_CLASS_NAME);
+  //     var item = popupFeatures.querySelector('li:nth-child(' + j + ')');
+  //     var matchCheck = false;
+  //     for (var i = 0; i < firstAd.offer.features.length; i++) {
+  //       var feature = firstAd.offer.features[i];
+  //       if (lastWordInClassName === feature) {
+  //         matchCheck = true;
+  //       }
+  //     }
+  //     if (matchCheck === true) {
+  //       item.textContent = lastWordInClassName;
+  //     } else {
+  //       item.classList.add('visually-hidden');
+  //     }
+  //   }
+  // };
   // запускаем функцию
-  addFeaturesToTheList();
+  // addFeaturesToTheList();
 
   popupDescriptions.textContent = firstAd.offer.description;
   popupAvatar.setAttribute('src', firstAd.author.avatar);
