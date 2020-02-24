@@ -120,10 +120,11 @@
 //     adDescriptions, adPhotoAddresses);
 
 var renderAds = function (adsArray) {
+  var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var adElement = userPinTemplate.cloneNode(true);
   var adElementImg = adElement.querySelector('img');
 
-  adElement.style.left = adsArray.location.x - PIN_WIDTH / 2 + 'px';
+  adElement.style.left = adsArray.location.x - window.data.PIN_WIDTH / 2 + 'px';
   adElement.style.top = adsArray.location.y + 'px';
   adElementImg.src = adsArray.author.avatar;
   adElementImg.alt = 'Заголовок объявления';
@@ -140,7 +141,7 @@ var addElement = function (elementsArray) {
 };
 
 var insertElements = function () {
-  mapPins.appendChild(addElement(mock));
+  window.data.mapPins.appendChild(addElement(window.data.mock));
 
   // // вызов карточки по клику на метке
   // var mapPin = mapPins.querySelectorAll('.map__pin');
@@ -184,11 +185,11 @@ var activate = function () {
 
   anableElements();
 
-  mainPinY = parseInt((mainPinButton.style.top), 10) + ACTIVE_MAIN_PIN_HEIGHT;
+  mainPinY = parseInt((mainPinButton.style.top), 10) + window.data.ACTIVE_MAIN_PIN_HEIGHT;
   address.setAttribute('value', mainPinX + ', ' + mainPinY);
 };
 
-var mainPin = mapPins.querySelector('.map__pin--main');
+var mainPin = window.data.mapPins.querySelector('.map__pin--main');
 
 var notActivatedYet = true;
 mainPin.addEventListener('mousedown', function (evt) {
@@ -215,9 +216,9 @@ mainPin.addEventListener('keydown', function (evt) {
 
 var address = notice.querySelector('#address');
 
-var mainPinButton = mapPins.querySelector('.map__pin--main');
-var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(MAIN_PIN_WIDTH / 2);
-var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(MAIN_PIN_HEIGHT / 2);
+var mainPinButton = window.data.mapPins.querySelector('.map__pin--main');
+var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(window.data.MAIN_PIN_WIDTH / 2);
+var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(window.data.MAIN_PIN_HEIGHT / 2);
 
 address.setAttribute('value', mainPinX + ', ' + mainPinY);
 
@@ -248,7 +249,7 @@ var renderCard = function () {
   var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   // записываем массив с данными для первого предложения в переменную
-  var firstAd = mock[0];
+  var firstAd = window.data.mock[0];
 
   // записываем клонированный шаблон в переменную
   var popupCard = userCardTemplate.cloneNode(true);
@@ -289,7 +290,7 @@ var renderCard = function () {
   popupTextCapacity.textContent = firstAd.offer.rooms + room + ' для ' +
   firstAd.offer.guests + guest;
 
-  popupType.textContent = HOUSE_TYPE[firstAd.offer.type];
+  popupType.textContent = window.data.HOUSE_TYPE[firstAd.offer.type];
 
   popupTextTime.textContent = 'Заезд после ' + firstAd.offer.checkin +
   ', выезд до ' + firstAd.offer.checkout;
@@ -301,7 +302,7 @@ var renderCard = function () {
   }
   for (var i = 0; i < firstAd.offer.features.length; i++) {
     var item = document.createElement('li');
-    item.setAttribute('class', 'popup__feature popup__feature--' + TYPES[i]);
+    item.setAttribute('class', 'popup__feature popup__feature--' + window.data.TYPES[i]);
     popupFeatures.appendChild(item);
   }
 
