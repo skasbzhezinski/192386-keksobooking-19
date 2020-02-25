@@ -222,26 +222,26 @@
 
 // address.setAttribute('value', mainPinX + ', ' + mainPinY);
 
-// Непростая валидация
+// // Непростая валидация
 
-// обработчик события 'change' на форме
-var onAdFormChange = function () {
-  var roomNumber = window.adForm.querySelector('#room_number');
-  var capacity = window.adForm.querySelector('#capacity');
+// // обработчик события 'change' на форме
+// var onAdFormChange = function () {
+//   var roomNumber = window.adForm.querySelector('#room_number');
+//   var capacity = window.adForm.querySelector('#capacity');
 
-  // количество комнат -- количество гостей
-  roomNumber.setCustomValidity('');
-  if ((roomNumber.value === '100') && (capacity.value !== '0')) {
-    roomNumber.setCustomValidity('100 комнат не для гостей');
-  } else if (roomNumber.value < capacity.value) {
-    roomNumber.setCustomValidity('Количество мест не должно превышать количество комнат');
-  } else if (roomNumber.value !== '100' && capacity.value === '0') {
-    roomNumber.setCustomValidity('Укажите количество мест');
-  }
-};
+//   // количество комнат -- количество гостей
+//   roomNumber.setCustomValidity('');
+//   if ((roomNumber.value === '100') && (capacity.value !== '0')) {
+//     roomNumber.setCustomValidity('100 комнат не для гостей');
+//   } else if (roomNumber.value < capacity.value) {
+//     roomNumber.setCustomValidity('Количество мест не должно превышать количество комнат');
+//   } else if (roomNumber.value !== '100' && capacity.value === '0') {
+//     roomNumber.setCustomValidity('Укажите количество мест');
+//   }
+// };
 
-// запуск валидации по событию 'change' на форме
-window.adForm.addEventListener('change', onAdFormChange);
+// // запуск валидации по событию 'change' на форме
+// window.adForm.addEventListener('change', onAdFormChange);
 
 // 7. Личный проект: больше деталей (часть 2)
 
