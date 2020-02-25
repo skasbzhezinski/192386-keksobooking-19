@@ -119,115 +119,115 @@
 // var mock = createSimilarAds(adTitles, housingAddresses, housingTypes,
 //     adDescriptions, adPhotoAddresses);
 
-var renderAds = function (adsArray) {
-  var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-  var adElement = userPinTemplate.cloneNode(true);
-  var adElementImg = adElement.querySelector('img');
+// var renderAds = function (adsArray) {
+//   var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+//   var adElement = userPinTemplate.cloneNode(true);
+//   var adElementImg = adElement.querySelector('img');
 
-  adElement.style.left = adsArray.location.x - window.data.PIN_WIDTH / 2 + 'px';
-  adElement.style.top = adsArray.location.y + 'px';
-  adElementImg.src = adsArray.author.avatar;
-  adElementImg.alt = 'Заголовок объявления';
+//   adElement.style.left = adsArray.location.x - window.data.PIN_WIDTH / 2 + 'px';
+//   adElement.style.top = adsArray.location.y + 'px';
+//   adElementImg.src = adsArray.author.avatar;
+//   adElementImg.alt = 'Заголовок объявления';
 
-  return adElement;
-};
+//   return adElement;
+// };
 
-var addElement = function (elementsArray) {
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < elementsArray.length; i++) {
-    fragment.appendChild(renderAds(elementsArray[i]));
-  }
-  return fragment;
-};
+// var addElement = function (elementsArray) {
+//   var fragment = document.createDocumentFragment();
+//   for (var i = 0; i < elementsArray.length; i++) {
+//     fragment.appendChild(renderAds(elementsArray[i]));
+//   }
+//   return fragment;
+// };
 
-var insertElements = function () {
-  window.data.mapPins.appendChild(addElement(window.data.mock));
+// var insertElements = function () {
+//   window.data.mapPins.appendChild(addElement(window.data.mock));
 
-  // // вызов карточки по клику на метке
-  // var mapPin = mapPins.querySelectorAll('.map__pin');
-  // var onMapPinClick = function () {
-  //   insertCard();
-  // };
+//   // // вызов карточки по клику на метке
+//   // var mapPin = mapPins.querySelectorAll('.map__pin');
+//   // var onMapPinClick = function () {
+//   //   insertCard();
+//   // };
 
-  // mapPin[1].addEventListener('click', onMapPinClick);
-};
+//   // mapPin[1].addEventListener('click', onMapPinClick);
+// };
 
 // 9. Личный проект: доверяй, но проверяй (часть 1)
 // Активация страницы
 
-var adMap = document.querySelector('.map');
-var notice = document.querySelector('.notice');
+// var adMap = document.querySelector('.map');
+// var notice = document.querySelector('.notice');
 
-var adForm = notice.querySelector('.ad-form');
+// var adForm = notice.querySelector('.ad-form');
 
-var disabledFormElements = document.querySelectorAll('.ad-form fieldset, .map__filters select, .map__filters input');
+// var disabledFormElements = document.querySelectorAll('.ad-form fieldset, .map__filters select, .map__filters input');
 
-var disableElements = function () {
-  for (var i = 0; i < disabledFormElements.length; i++) {
-    disabledFormElements[i].setAttribute('disabled', '');
-  }
-};
+// var disableElements = function () {
+//   for (var i = 0; i < disabledFormElements.length; i++) {
+//     disabledFormElements[i].setAttribute('disabled', '');
+//   }
+// };
 
-var anableElements = function () {
-  for (var i = 0; i < disabledFormElements.length; i++) {
-    disabledFormElements[i].removeAttribute('disabled', '');
-  }
-};
+// var anableElements = function () {
+//   for (var i = 0; i < disabledFormElements.length; i++) {
+//     disabledFormElements[i].removeAttribute('disabled', '');
+//   }
+// };
 
-disableElements(); // по дефолту запущена, переопределяется при активации
+// disableElements(); // по дефолту запущена, переопределяется при активации
 
-// функция активации страницы
-var activate = function () {
-  insertElements();
+// // функция активации страницы
+// var activate = function () {
+//   insertElements();
 
-  adForm.classList.remove('ad-form--disabled');
-  adMap.classList.remove('map--faded');
+//   adForm.classList.remove('ad-form--disabled');
+//   adMap.classList.remove('map--faded');
 
-  anableElements();
+//   anableElements();
 
-  mainPinY = parseInt((mainPinButton.style.top), 10) + window.data.ACTIVE_MAIN_PIN_HEIGHT;
-  address.setAttribute('value', mainPinX + ', ' + mainPinY);
-};
+//   mainPinY = parseInt((mainPinButton.style.top), 10) + window.data.ACTIVE_MAIN_PIN_HEIGHT;
+//   address.setAttribute('value', mainPinX + ', ' + mainPinY);
+// };
 
-var mainPin = window.data.mapPins.querySelector('.map__pin--main');
+// var mainPin = window.data.mapPins.querySelector('.map__pin--main');
 
-var notActivatedYet = true;
-mainPin.addEventListener('mousedown', function (evt) {
-  if (notActivatedYet === false) {
-    return;
-  }
-  if (evt.button === 0) {
-    activate();
-    notActivatedYet = false;
-  }
-});
+// var notActivatedYet = true;
+// mainPin.addEventListener('mousedown', function (evt) {
+//   if (notActivatedYet === false) {
+//     return;
+//   }
+//   if (evt.button === 0) {
+//     activate();
+//     notActivatedYet = false;
+//   }
+// });
 
-mainPin.addEventListener('keydown', function (evt) {
-  if (notActivatedYet === false) {
-    return;
-  }
-  if (evt.key === 'Enter') {
-    activate();
-    notActivatedYet = false;
-  }
-});
+// mainPin.addEventListener('keydown', function (evt) {
+//   if (notActivatedYet === false) {
+//     return;
+//   }
+//   if (evt.key === 'Enter') {
+//     activate();
+//     notActivatedYet = false;
+//   }
+// });
 
-// Заполнение поля адреса
+// // Заполнение поля адреса
 
-var address = notice.querySelector('#address');
+// var address = notice.querySelector('#address');
 
-var mainPinButton = window.data.mapPins.querySelector('.map__pin--main');
-var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(window.data.MAIN_PIN_WIDTH / 2);
-var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(window.data.MAIN_PIN_HEIGHT / 2);
+// var mainPinButton = window.data.mapPins.querySelector('.map__pin--main');
+// var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(window.data.MAIN_PIN_WIDTH / 2);
+// var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(window.data.MAIN_PIN_HEIGHT / 2);
 
-address.setAttribute('value', mainPinX + ', ' + mainPinY);
+// address.setAttribute('value', mainPinX + ', ' + mainPinY);
 
 // Непростая валидация
 
 // обработчик события 'change' на форме
 var onAdFormChange = function () {
-  var roomNumber = adForm.querySelector('#room_number');
-  var capacity = adForm.querySelector('#capacity');
+  var roomNumber = window.adForm.querySelector('#room_number');
+  var capacity = window.adForm.querySelector('#capacity');
 
   // количество комнат -- количество гостей
   roomNumber.setCustomValidity('');
@@ -241,7 +241,7 @@ var onAdFormChange = function () {
 };
 
 // запуск валидации по событию 'change' на форме
-adForm.addEventListener('change', onAdFormChange);
+window.adForm.addEventListener('change', onAdFormChange);
 
 // 7. Личный проект: больше деталей (часть 2)
 
@@ -324,8 +324,8 @@ var renderCard = function () {
 
 // функция вставки карточки в DOM
 var insertCard = function () {
-  var mapfiltersContainer = adMap.querySelector('.map__filters-container');
-  adMap.insertBefore(renderCard(), mapfiltersContainer);
+  var mapfiltersContainer = window.adMap.querySelector('.map__filters-container');
+  window.adMap.insertBefore(renderCard(), mapfiltersContainer);
 };
 
 // ============== отладка ============== //
