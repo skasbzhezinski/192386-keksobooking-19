@@ -3,15 +3,15 @@
 (function () {
   var renderAds = function (adsArray) {
     var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-    var adElement = userPinTemplate.cloneNode(true);
-    var adElementImg = adElement.querySelector('img');
+    var userPin = userPinTemplate.cloneNode(true);
+    var userPinImg = adElement.querySelector('img');
 
-    adElement.style.left = adsArray.location.x - window.data.PIN_WIDTH / 2 + 'px';
-    adElement.style.top = adsArray.location.y + 'px';
-    adElementImg.src = adsArray.author.avatar;
-    adElementImg.alt = 'Заголовок объявления';
+    userPin.style.left = adsArray.location.x - window.data.PIN_WIDTH / 2 + 'px';
+    userPin.style.top = adsArray.location.y + 'px';
+    userPinImg.src = adsArray.author.avatar;
+    userPinImg.alt = 'Заголовок объявления';
 
-    return adElement;
+    return userPin;
   };
 
   var addElement = function (elementsArray) {
@@ -24,14 +24,6 @@
 
   var insertElements = function () {
     window.data.mapPins.appendChild(addElement(window.data.mock));
-
-    // // вызов карточки по клику на метке
-    // var mapPin = mapPins.querySelectorAll('.map__pin');
-    // var onMapPinClick = function () {
-    //   insertCard();
-    // };
-
-    // mapPin[1].addEventListener('click', onMapPinClick);
   };
 
   var adMap = document.querySelector('.map');
