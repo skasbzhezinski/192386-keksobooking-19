@@ -74,7 +74,6 @@
       insertedImg.setAttribute('src', firstAd.offer.photos[num]);
       popupPhotos.appendChild(insertedImg);
     }
-
     return popupCard;
   };
 
@@ -84,10 +83,6 @@
     window.adMap.insertBefore(renderCard(), mapfiltersContainer);
   };
 
-  // ============== отладка ============== //
   // вставляем карточку
   insertCard();
-
-  // console.log(mapPins);
-
 })();

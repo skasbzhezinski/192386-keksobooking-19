@@ -3,10 +3,10 @@
 (function () {
   var adMap = document.querySelector('.map');
   var notice = document.querySelector('.notice');
-
   var adForm = notice.querySelector('.ad-form');
-
   var disabledFormElements = document.querySelectorAll('.ad-form fieldset, .map__filters select, .map__filters input');
+  var address = notice.querySelector('#address');
+  var mainPin = window.data.mapPins.querySelector('.map__pin--main');
 
   var disableElements = function () {
     for (var i = 0; i < disabledFormElements.length; i++) {
@@ -35,8 +35,6 @@
     address.setAttribute('value', mainPinX + ', ' + mainPinY);
   };
 
-  var mainPin = window.data.mapPins.querySelector('.map__pin--main');
-
   var notActivatedYet = true;
   mainPin.addEventListener('mousedown', function (evt) {
     if (notActivatedYet === false) {
@@ -59,8 +57,6 @@
   });
 
   // Заполнение поля адреса
-
-  var address = notice.querySelector('#address');
 
   var mainPinButton = window.data.mapPins.querySelector('.map__pin--main');
   var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(window.data.MAIN_PIN_WIDTH / 2);

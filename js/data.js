@@ -8,15 +8,16 @@
   var MAIN_PIN_WIDTH = 65; // равна высоте в неактивном состоянии
   var MAIN_PIN_HEIGHT = 65;
   var ACTIVE_MAIN_PIN_HEIGHT = 84;
+
   var HOUSE_TYPE = {
     palace: 'Дворец',
     flat: 'Квартира',
     bungalo: 'Бунгало',
     house: 'Дом'
   };
+
   var TYPES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
-  // var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var mapPins = document.querySelector('.map__pins');
 
   // массивы
@@ -128,8 +129,6 @@
     ACTIVE_MAIN_PIN_HEIGHT: ACTIVE_MAIN_PIN_HEIGHT,
     HOUSE_TYPE: HOUSE_TYPE,
     TYPES: TYPES,
-
-    // userPinTemplate: userPinTemplate,
     mapPins: mapPins,
     mock: mock
   };
