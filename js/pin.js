@@ -11,6 +11,14 @@
     userPinImg.src = adsArray.author.avatar;
     userPinImg.alt = 'Заголовок объявления';
 
+    // =================== //
+    // console.log(userPin);
+
+    var onUserPinOpenCard = function () {
+      window.insertCard(adsArray);
+    };
+    userPin.addEventListener('click', onUserPinOpenCard);
+
     return userPin;
   };
 

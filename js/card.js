@@ -83,6 +83,5 @@
     window.adMap.insertBefore(renderCard(data), mapfiltersContainer);
   };
 
-  // вставляем карточку
-  // insertCard();
+  window.insertCard = insertCard;
 })();
