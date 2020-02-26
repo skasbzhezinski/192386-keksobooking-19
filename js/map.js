@@ -4,7 +4,7 @@
   var renderAds = function (adsArray) {
     var userPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
     var userPin = userPinTemplate.cloneNode(true);
-    var userPinImg = adElement.querySelector('img');
+    var userPinImg = userPin.querySelector('img');
 
     userPin.style.left = adsArray.location.x - window.data.PIN_WIDTH / 2 + 'px';
     userPin.style.top = adsArray.location.y + 'px';
