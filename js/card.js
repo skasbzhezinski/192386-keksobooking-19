@@ -27,8 +27,8 @@
     popupAddress.textContent = mockData.offer.address;
     popupPrice.textContent = mockData.offer.price + '₽/ночь'; // ???
 
-    var room = window.plural(mockData.offer.rooms, [' комната', ' комнаты', ' комнат']);
-    var guest = window.plural(mockData.offer.guests, [' гостя', ' гостей', ' гостей']);
+    var room = window.util.plural(mockData.offer.rooms, [' комната', ' комнаты', ' комнат']);
+    var guest = window.util.plural(mockData.offer.guests, [' гостя', ' гостей', ' гостей']);
 
     popupTextCapacity.textContent = mockData.offer.rooms + room + ' для ' +
     mockData.offer.guests + guest;
@@ -66,9 +66,11 @@
 
   // функция вставки карточки в DOM
   var insertCard = function (data) {
-    var mapfiltersContainer = window.adMap.querySelector('.map__filters-container');
-    window.adMap.insertBefore(renderCard(data), mapfiltersContainer);
+    var mapfiltersContainer = window.map.adMap.querySelector('.map__filters-container');
+    window.map.adMap.insertBefore(renderCard(data), mapfiltersContainer);
   };
 
-  window.insertCard = insertCard;
+  window.card = {
+    insertCard: insertCard
+  };
 })();

@@ -5,8 +5,8 @@
 
   // обработчик события 'change' на форме
   var onAdFormChange = function () {
-    var roomNumber = window.adForm.querySelector('#room_number');
-    var capacity = window.adForm.querySelector('#capacity');
+    var roomNumber = window.map.adForm.querySelector('#room_number');
+    var capacity = window.map.adForm.querySelector('#capacity');
 
     // количество комнат -- количество гостей
     roomNumber.setCustomValidity('');
@@ -20,6 +20,6 @@
   };
 
   // запуск валидации по событию 'change' на форме
-  window.adForm.addEventListener('change', onAdFormChange);
+  window.map.adForm.addEventListener('change', onAdFormChange);
 
 })();

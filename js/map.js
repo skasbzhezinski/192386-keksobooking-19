@@ -24,7 +24,7 @@
 
   // функция активации страницы
   var activate = function () {
-    window.insertElements();
+    window.pin.insertElements();
 
     adForm.classList.remove('ad-form--disabled');
     adMap.classList.remove('map--faded');
@@ -64,6 +64,8 @@
 
   address.setAttribute('value', mainPinX + ', ' + mainPinY);
 
-  window.adForm = adForm;
-  window.adMap = adMap;
+  window.map = {
+    adForm: adForm,
+    adMap: adMap
+  };
 })();

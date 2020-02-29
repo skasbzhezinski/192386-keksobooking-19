@@ -14,5 +14,7 @@
     return forms[id] || '';
   };
 
-  window.plural = plural;
+  window.util = {
+    plural: plural
+  };
 })();
