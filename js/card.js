@@ -27,21 +27,8 @@
     popupAddress.textContent = mockData.offer.address;
     popupPrice.textContent = mockData.offer.price + '₽/ночь'; // ???
 
-    // функция выбора окончаний
-    var plural = function (n, forms) {
-      var id;
-      if (n % 10 === 1 && n % 100 !== 11) {
-        id = 0;
-      } else if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) {
-        id = 1;
-      } else {
-        id = 2;
-      }
-      return forms[id] || '';
-    };
-
-    var room = plural(mockData.offer.rooms, [' комната', ' комнаты', ' комнат']);
-    var guest = plural(mockData.offer.guests, [' гостя', ' гостей', ' гостей']);
+    var room = window.plural(mockData.offer.rooms, [' комната', ' комнаты', ' комнат']);
+    var guest = window.plural(mockData.offer.guests, [' гостя', ' гостей', ' гостей']);
 
     popupTextCapacity.textContent = mockData.offer.rooms + room + ' для ' +
     mockData.offer.guests + guest;

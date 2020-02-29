@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var quantityOfObjects = 8;
+  var QUANTITY_OF_OBJECTS = 8;
   // var PIN_HEIGHT = 70; // высота метки
   var PIN_WIDTH = 50; // ширина метки
   var MAP_WIDTH = 1200; // ширина блока .map__overlay
@@ -87,7 +87,7 @@
 
   var createSimilarAds = function (titles, addresses, types, descriptions, photoAddresses) {
     var similarAds = [];
-    for (var i = 0; i < quantityOfObjects; i++) {
+    for (var i = 0; i < QUANTITY_OF_OBJECTS; i++) {
       var checkinTime = arrivalTimes[getRandomBetween(2, 0)];
       var checkoutTime = arrivalTimes[getRandomBetween(2, 0)];
       similarAds[i] = {
