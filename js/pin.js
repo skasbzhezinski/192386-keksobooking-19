@@ -11,10 +11,20 @@
     userPinImg.src = adsArray.author.avatar;
     userPinImg.alt = 'Заголовок объявления';
 
-    var onUserPinOpenCard = function () {
+    // var onUserPinOpenCard = function () {
+    //   window.card.insertCard(adsArray);
+    // };
+
+    // userPin.addEventListener('click', onUserPinOpenCard);
+
+
+    userPin.addEventListener('click', function () {
+      var currentCurd = window.map.adMap.querySelector('.map__card');
+      if (currentCurd) {
+        currentCurd.remove();
+      }
       window.card.insertCard(adsArray);
-    };
-    userPin.addEventListener('click', onUserPinOpenCard);
+    });
 
     return userPin;
   };
