@@ -38,7 +38,7 @@
   };
 
   var insertElements = function () {
-    window.data.mapPins.appendChild(addElement(window.data.mock));
+    window.data.mapPins.appendChild(addElement(xhr.response));
   };
 
   window.pin = {

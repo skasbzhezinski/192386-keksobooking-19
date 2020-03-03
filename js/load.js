@@ -1,69 +1,27 @@
 'use strict';
 
-(function () {
-  window.load = function (url, onSuccess, onError) {
-    var xhr = new XMLHttpRequest();
+// создаем новый объект xhr
+var xhr = new XMLHttpRequest();
 
-    xhr.responseType = 'json';
+// обработчик события срабатывающий когда сервер вернет ответ
+xhr.responseType = 'json';
 
-    xhr.addEventListener('load', function () {
-      var error;
-      switch (xhr.status) {
-        case 200:
-          onSuccess(xhr.response);
-          break;
+xhr.addEventListener('load', function () {
 
-        case 400:
-          error = 'Неверный запрос';
-          break;
-        case 401:
-          error = 'Пользователь не авторизован';
-          break;
-        case 404:
-          error = 'Ничего не найдено';
-          break;
+  // ============= //
+  console.log(xhr.response);
+  console.log(xhr.response[0]);
+  console.log(xhr.response[0].author);
+  console.log(xhr.response[0].author.avatar);
+  console.log(typeof xhr.response[0].author.avatar);
+});
 
-        default:
-          error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
-      }
+console.log('readyState - ', xhr.readyState);
 
-      if (error) {
-        onError(error);
-      }
-    });
+xhr.open('GET', 'https://js.dump.academy/keksobooking/data');
 
-    xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
-    });
+console.log('readyState - ', xhr.readyState);
 
-    xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
+xhr.send();
 
-    xhr.timeout = 5000;
-
-    xhr.open('GET', url);
-    xhr.send();
-  };
-  var onError = function (message) {
-    console.error(message);
-  };
-
-  var onSuccess = function (data) {
-    console.log('data');
-    console.log(data);
-  };
-  window.load('https://js.dump.academy/keksobooking/data', onSuccess, onError);
-
-})();
-
-// var onError = function (message) {
-//   console.error(message);
-// };
-
-// var onSuccess = function (data) {
-//   console.log('data');
-//   console.log(data);
-// };
-// window.load('https://js.dump.academy/keksobooking/data', onSuccess, onError);
-console.log(window.load.data);
+console.log('readyState - ', xhr.readyState);
