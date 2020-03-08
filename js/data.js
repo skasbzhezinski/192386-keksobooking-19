@@ -122,6 +122,7 @@
       adDescriptions, adPhotoAddresses);
 
   window.data = {
+    QUANTITY_OF_OBJECTS: QUANTITY_OF_OBJECTS,
     PIN_WIDTH: PIN_WIDTH,
     MAP_WIDTH: MAP_WIDTH,
     MAIN_PIN_WIDTH: MAIN_PIN_WIDTH,
