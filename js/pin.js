@@ -11,13 +11,7 @@
     userPinImg.src = adsArray.author.avatar;
     userPinImg.alt = 'Заголовок объявления';
 
-    // var onUserPinOpenCard = function () {
-    //   window.card.insertCard(adsArray);
-    // };
-
-    // userPin.addEventListener('click', onUserPinOpenCard);
-
-
+    // добавление карточки по клику на метке
     userPin.addEventListener('click', function () {
       var currentCurd = window.map.adMap.querySelector('.map__card');
       if (currentCurd) {
@@ -29,16 +23,12 @@
     return userPin;
   };
 
-  var addElement = function (elementsArray) {
+  var insertElements = function (elementsArray) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < elementsArray.length; i++) {
       fragment.appendChild(renderAds(elementsArray[i]));
     }
-    return fragment;
-  };
-
-  var insertElements = function () {
-    window.data.mapPins.appendChild(addElement(window.load.xhr.response));
+    return window.data.mapPins.appendChild(fragment);
   };
 
   window.pin = {
