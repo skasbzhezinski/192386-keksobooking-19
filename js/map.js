@@ -24,7 +24,7 @@
 
   // функция активации страницы
   var activate = function () {
-    window.pin.insertElements();
+    window.pin.insertElements(window.load.xhr.response);
 
     adForm.classList.remove('ad-form--disabled');
     adMap.classList.remove('map--faded');
