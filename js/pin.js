@@ -23,15 +23,7 @@
     return userPin;
   };
 
-  var insertElements = function (elementsArray) {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.data.QUANTITY_OF_OBJECTS; i++) {
-      fragment.appendChild(renderAds(elementsArray[i]));
-    }
-    return window.data.mapPins.appendChild(fragment);
-  };
-
   window.pin = {
-    insertElements: insertElements
+    renderAds: renderAds
   };
 })();
