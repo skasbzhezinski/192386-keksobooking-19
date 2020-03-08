@@ -22,9 +22,21 @@
 
   disableElements(); // по дефолту запущена, переопределяется при активации
 
+  var onSuccess = function (elementsArray) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < window.data.QUANTITY_OF_OBJECTS; i++) {
+      fragment.appendChild(window.pin.renderAds(elementsArray[i]));
+    }
+    return window.data.mapPins.appendChild(fragment);
+  };
+
+  var onError = function (errorMessage) {
+    console.log(errorMessage);
+  };
+
   // функция активации страницы
   var activate = function () {
-    window.pin.insertElements(window.load.xhr.response);
+    window.load(onSuccess, onError);
 
     adForm.classList.remove('ad-form--disabled');
     adMap.classList.remove('map--faded');
