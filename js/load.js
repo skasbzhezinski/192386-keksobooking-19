@@ -14,7 +14,6 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
         successHandler(xhr.response);
-        console.log(xhr.status);
       } else {
         errorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
