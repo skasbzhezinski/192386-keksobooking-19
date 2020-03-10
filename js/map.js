@@ -1,12 +1,17 @@
 'use strict';
 
 (function () {
+  var QUANTITY_OF_OBJECTS = 8;
+  var MAIN_PIN_WIDTH = 65; // равна высоте в неактивном состоянии
+  var MAIN_PIN_HEIGHT = 65;
+  var ACTIVE_MAIN_PIN_HEIGHT = 84;
   var adMap = document.querySelector('.map');
+  var mapPins = document.querySelector('.map__pins');
   var notice = document.querySelector('.notice');
   var adForm = notice.querySelector('.ad-form');
   var disabledFormElements = document.querySelectorAll('.ad-form fieldset, .map__filters select, .map__filters input');
   var address = notice.querySelector('#address');
-  var mainPin = window.data.mapPins.querySelector('.map__pin--main');
+  var mainPin = mapPins.querySelector('.map__pin--main');
 
   var disableElements = function () {
     for (var i = 0; i < disabledFormElements.length; i++) {
@@ -24,10 +29,10 @@
 
   var onSuccess = function (elementsArray) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.data.QUANTITY_OF_OBJECTS; i++) {
+    for (var i = 0; i < QUANTITY_OF_OBJECTS; i++) {
       fragment.appendChild(window.pin.renderAds(elementsArray[i]));
     }
-    return window.data.mapPins.appendChild(fragment);
+    return mapPins.appendChild(fragment);
   };
 
   var onError = function (errorMessage) {
@@ -52,7 +57,7 @@
 
     anableElements();
 
-    mainPinY = parseInt((mainPinButton.style.top), 10) + window.data.ACTIVE_MAIN_PIN_HEIGHT;
+    mainPinY = parseInt((mainPinButton.style.top), 10) + ACTIVE_MAIN_PIN_HEIGHT;
     address.setAttribute('value', mainPinX + ', ' + mainPinY);
   };
 
@@ -79,9 +84,9 @@
 
   // Заполнение поля адреса
 
-  var mainPinButton = window.data.mapPins.querySelector('.map__pin--main');
-  var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(window.data.MAIN_PIN_WIDTH / 2);
-  var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(window.data.MAIN_PIN_HEIGHT / 2);
+  var mainPinButton = mapPins.querySelector('.map__pin--main');
+  var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(MAIN_PIN_WIDTH / 2);
+  var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(MAIN_PIN_HEIGHT / 2);
 
   address.setAttribute('value', mainPinX + ', ' + mainPinY);
 

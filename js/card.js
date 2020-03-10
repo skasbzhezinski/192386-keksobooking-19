@@ -1,7 +1,15 @@
 'use strict';
 
 (function () {
-  var renderCard = function (mockData) {
+  var renderCard = function (serverData) {
+    var HOUSE_TYPE = {
+      palace: 'Дворец',
+      flat: 'Квартира',
+      bungalo: 'Бунгало',
+      house: 'Дом'
+    };
+    var TYPES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+
     var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
     // записываем массив с данными для первого предложения в переменную
@@ -23,42 +31,42 @@
     var popupAvatar = popupCard.querySelector('.popup__avatar');
 
     // в каждый элемент карточки записываем данные из сгенерированного массива
-    popupTitle.textContent = mockData.offer.title;
-    popupAddress.textContent = mockData.offer.address;
-    popupPrice.textContent = mockData.offer.price + '₽/ночь'; // ???
+    popupTitle.textContent = serverData.offer.title;
+    popupAddress.textContent = serverData.offer.address;
+    popupPrice.textContent = serverData.offer.price + '₽/ночь'; // ???
 
-    var room = window.util.plural(mockData.offer.rooms, [' комната', ' комнаты', ' комнат']);
-    var guest = window.util.plural(mockData.offer.guests, [' гостя', ' гостей', ' гостей']);
+    var room = window.util.plural(serverData.offer.rooms, [' комната', ' комнаты', ' комнат']);
+    var guest = window.util.plural(serverData.offer.guests, [' гостя', ' гостей', ' гостей']);
 
-    popupTextCapacity.textContent = mockData.offer.rooms + room + ' для ' +
-    mockData.offer.guests + guest;
+    popupTextCapacity.textContent = serverData.offer.rooms + room + ' для ' +
+    serverData.offer.guests + guest;
 
-    popupType.textContent = window.data.HOUSE_TYPE[mockData.offer.type];
+    popupType.textContent = HOUSE_TYPE[serverData.offer.type];
 
-    popupTextTime.textContent = 'Заезд после ' + mockData.offer.checkin +
-    ', выезд до ' + mockData.offer.checkout;
+    popupTextTime.textContent = 'Заезд после ' + serverData.offer.checkin +
+    ', выезд до ' + serverData.offer.checkout;
 
     // вывод доступных удобств
 
     while (popupFeatures.firstChild) {
       popupFeatures.removeChild(popupFeatures.firstChild);
     }
-    for (var i = 0; i < mockData.offer.features.length; i++) {
+    for (var i = 0; i < serverData.offer.features.length; i++) {
       var item = document.createElement('li');
-      item.setAttribute('class', 'popup__feature popup__feature--' + window.data.TYPES[i]);
+      item.setAttribute('class', 'popup__feature popup__feature--' + TYPES[i]);
       popupFeatures.appendChild(item);
     }
 
-    popupDescriptions.textContent = mockData.offer.descriptions;
-    popupAvatar.setAttribute('src', mockData.author.avatar);
+    popupDescriptions.textContent = serverData.offer.descriptions;
+    popupAvatar.setAttribute('src', serverData.author.avatar);
 
     // добавление фотографий в блок popupPhotos
     var img = popupPhotos.querySelector('.popup__photo');
     popupPhotos.removeChild(img);
     var insertedImg;
-    for (var num = 0; num < mockData.offer.photos.length; num++) {
+    for (var num = 0; num < serverData.offer.photos.length; num++) {
       insertedImg = img.cloneNode(true);
-      insertedImg.setAttribute('src', mockData.offer.photos[num]);
+      insertedImg.setAttribute('src', serverData.offer.photos[num]);
       popupPhotos.appendChild(insertedImg);
     }
     return popupCard;
