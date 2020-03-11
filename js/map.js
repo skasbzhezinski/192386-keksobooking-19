@@ -5,6 +5,7 @@
   var MAIN_PIN_WIDTH = 65; // равна высоте в неактивном состоянии
   var MAIN_PIN_HEIGHT = 65;
   var ACTIVE_MAIN_PIN_HEIGHT = 84;
+
   var adMap = document.querySelector('.map');
   var mapPins = document.querySelector('.map__pins');
   var notice = document.querySelector('.notice');
@@ -36,7 +37,6 @@
   };
 
   var onError = function (errorMessage) {
-    // console.error(errorMessage);
     var node = document.createElement('div');
     node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
     node.style.position = 'absolute';
@@ -83,7 +83,6 @@
   });
 
   // Заполнение поля адреса
-
   var mainPinButton = mapPins.querySelector('.map__pin--main');
   var mainPinX = parseInt((mainPinButton.style.left), 10) + Math.round(MAIN_PIN_WIDTH / 2);
   var mainPinY = parseInt((mainPinButton.style.top), 10) + Math.round(MAIN_PIN_HEIGHT / 2);

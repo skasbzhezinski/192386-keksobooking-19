@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-// Непростая валидация
-
   // обработчик события 'change' на форме
   var onAdFormChange = function () {
     var roomNumber = window.map.adForm.querySelector('#room_number');

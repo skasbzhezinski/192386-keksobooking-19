@@ -12,9 +12,6 @@
 
     var userCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-    // записываем массив с данными для первого предложения в переменную
-    // var firstAd = window.data.mock[0];
-
     // записываем клонированный шаблон в переменную
     var popupCard = userCardTemplate.cloneNode(true);
 
@@ -47,7 +44,6 @@
     ', выезд до ' + serverData.offer.checkout;
 
     // вывод доступных удобств
-
     while (popupFeatures.firstChild) {
       popupFeatures.removeChild(popupFeatures.firstChild);
     }
